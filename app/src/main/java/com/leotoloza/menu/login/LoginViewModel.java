@@ -1,6 +1,9 @@
 package com.leotoloza.menu.login;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -8,6 +11,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.leotoloza.menu.ApiClient;
+import com.leotoloza.menu.MainActivity;
 import com.leotoloza.menu.modelo.LoginModel;
 import com.leotoloza.menu.modelo.Propietario;
 
@@ -17,27 +21,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginViewModel extends AndroidViewModel {
-
-    private MutableLiveData<String> accessTokenLiveData;
-    private MutableLiveData<Boolean> isLoading;
+    Context context;
     private MutableLiveData<String> errorMessage;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
-    }
-
-    public MutableLiveData<String> getAccessTokenLiveData() {
-        if (accessTokenLiveData == null) {
-            accessTokenLiveData = new MutableLiveData<>();
-        }
-        return accessTokenLiveData;
-    }
-
-    public MutableLiveData<Boolean> getIsLoading() {
-        if (isLoading == null) {
-            isLoading = new MutableLiveData<>();
-        }
-        return isLoading;
+        context = application.getApplicationContext();
     }
 
     public MutableLiveData<String> getErrorMessage() {
@@ -46,7 +35,6 @@ public class LoginViewModel extends AndroidViewModel {
         }
         return errorMessage;
     }
-
     public void login(String email, String password) {
         LoginModel propietario = new LoginModel(email, password);
         ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
@@ -60,15 +48,31 @@ public class LoginViewModel extends AndroidViewModel {
                     propietario.setToken(token);
                     // Manejar el token JWT devuelto por el servidor
                     Log.d("salida", "Token JWT: " + token);
+                    guardarSP(token);
+                    Intent intent = new Intent(context, MainActivity.class);
+                    intent.putExtra("token",token);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+
              }else{
-                 Log.d("salida", "siFallo: "+response.message());
+                    errorMessage.setValue(response.message());
              }
          }
+
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
-                Log.d("salida", "onFailure: "+t.getMessage());
+                errorMessage.setValue(t.getMessage());
             }
      });
     }
+
+    private void guardarSP(String token){
+    SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria",0);
+    SharedPreferences.Editor editor = sp.edit();
+    editor.putString("tokenAcceso",token);
+    editor.commit();
+    }
+
+
 }
 

@@ -2,7 +2,10 @@ package com.leotoloza.menu;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.leotoloza.menu.modelo.Inmueble;
 import com.leotoloza.menu.modelo.LoginModel;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -10,6 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public class ApiClient {
@@ -29,6 +35,10 @@ public class ApiClient {
     public interface ApiInmobiliaria{
         @POST("api/Login")
         Call<LoginModel> login(@Body LoginModel loginModel);
+
+        @GET("api/Inmueble")
+        Call<List<Inmueble>> getInmuebles(@Header("Authorization") String token);
+
 
     }
 

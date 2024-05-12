@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,24 +35,13 @@ private LoginViewModel viewModel;
                 viewModel.login(email,pass);
             }
         });
-        viewModel.getAccessTokenLiveData().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                Log.d("SALIDA", "LIENA 40 onChanged: --->"+s);
-            }
-        });
+
         viewModel.getErrorMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
+                Toast.makeText(LoginAcitivity.this, "Ocurrio un error "+s, Toast.LENGTH_LONG).show();
                 Log.d("SALIDA", "LINEA46 onChanged: --->"+s);
             }
         });
-        viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                Log.d("SALIDA", "LIENA 52 onChanged: --->"+aBoolean);
-            }
-        });
-
     }
 }
