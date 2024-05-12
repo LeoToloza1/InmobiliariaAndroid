@@ -5,9 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Propietario implements Serializable {
     private String nombre;
     private String apellido;
-    @SerializedName("email")
     private String email;
-    @SerializedName("password")
     private String password;
     private long telefono;
 

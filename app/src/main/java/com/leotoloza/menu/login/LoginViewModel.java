@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.leotoloza.menu.ApiClient;
+import com.leotoloza.menu.modelo.LoginModel;
 import com.leotoloza.menu.modelo.Propietario;
 
 import okhttp3.ResponseBody;
@@ -47,30 +48,27 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public void login(String email, String password) {
-        isLoading.setValue(true);
-        Propietario propietario = new Propietario(email, password);
-        ApiClient apiClient = ApiClient.retrofit.create(ApiClient.class);
-        Call<String> call = apiClient.login(propietario);
-        call.enqueue(new Callback<String>() {
+        LoginModel propietario = new LoginModel(email, password);
+        ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
+        Call<LoginModel> llamada = endpoint.login(propietario);
+        llamada.enqueue(new Callback<LoginModel>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                isLoading.setValue(false);
+            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
                 if (response.isSuccessful()) {
-                    accessTokenLiveData.setValue(response.body());
-
-                    Log.d("salida", "onResponse: --->"+response.body());
-                } else {
-                    errorMessage.setValue("Credenciales inválidas");
-                }
-            }
-
+                    LoginModel loginResponse = response.body();
+                    String token = loginResponse.getTokenGenerado();
+                    propietario.setToken(token);
+                    // Manejar el token JWT devuelto por el servidor
+                    Log.d("salida", "Token JWT: " + token);
+             }else{
+                 Log.d("salida", "siFallo: "+response.message());
+             }
+         }
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                isLoading.setValue(false);
-                errorMessage.setValue("Error de conexión");
+            public void onFailure(Call<LoginModel> call, Throwable t) {
+                Log.d("salida", "onFailure: "+t.getMessage());
             }
-        });
+     });
     }
-
 }
 

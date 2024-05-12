@@ -1,23 +1,35 @@
 package com.leotoloza.menu;
 
-import com.leotoloza.menu.modelo.Propietario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.leotoloza.menu.modelo.Propietario;
+import com.leotoloza.menu.modelo.LoginModel;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
-public interface ApiClient {
-    @POST("api/Login")
-    Call<String> login(@Body Propietario propietario);
+public class ApiClient {
+    private static final String URLBASE ="http://192.168.0.105:5000/";
+    private static ApiInmobiliaria apiInmobiliaria;
 
-    Gson gson = new GsonBuilder().setLenient().create();
+    public static ApiInmobiliaria getApiInmobiliaria(){
+       Gson gson=new GsonBuilder().setLenient().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URLBASE)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+   apiInmobiliaria=retrofit.create(ApiInmobiliaria.class);
+   return apiInmobiliaria;
+    }
 
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://localhost:5000/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build();
+    public interface ApiInmobiliaria{
+        @POST("api/Login")
+        Call<LoginModel> login(@Body LoginModel loginModel);
+
+    }
+
 }
