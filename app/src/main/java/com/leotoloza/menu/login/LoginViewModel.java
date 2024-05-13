@@ -47,7 +47,6 @@ public class LoginViewModel extends AndroidViewModel {
                     String token = loginResponse.getTokenGenerado();
                     propietario.setToken(token);
                     // Manejar el token JWT devuelto por el servidor
-                    Log.d("salida", "Token JWT: " + token);
                     guardarSP(token);
                     Intent intent = new Intent(context, MainActivity.class);
                     intent.putExtra("token",token);
@@ -70,6 +69,7 @@ public class LoginViewModel extends AndroidViewModel {
     SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria",0);
     SharedPreferences.Editor editor = sp.edit();
     editor.putString("tokenAcceso",token);
+    Log.d("salida", "guardarSP: "+token);
     editor.commit();
     }
 

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainViewModel extends AndroidViewModel {
 
@@ -30,20 +32,32 @@ public class MainViewModel extends AndroidViewModel {
             return inmueblesLiveData;
         }
 
-        public void recuperarToken() {
+        public String recuperarToken() {
             SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria", 0);
             String token = sp.getString("tokenAcceso", null);
             if (token != null) {
                 cargarInmuebles();
+                return token;
             } else {
                 mostrarMensajeError("Token vencido, por favor inicie sesión nuevamente");
+            return null;
             }
         }
 
         private void cargarInmuebles() {
             ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
-            Call<List<Inmueble>> listaInmuebles = endpoint.getInmuebles("ajajksajhs");
+            Call<List<Inmueble>> listaInmuebles = endpoint.getInmuebles(recuperarToken());
+            listaInmuebles.enqueue(new Callback<List<Inmueble>>() {
+                @Override
+                public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
 
+                }
+
+                @Override
+                public void onFailure(Call<List<Inmueble>> call, Throwable t) {
+
+                }
+            });
         }
 
         private void mostrarMensajeError(String mensaje) {
