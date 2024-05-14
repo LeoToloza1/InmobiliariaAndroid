@@ -70,6 +70,7 @@ public class PerfilViewModel extends AndroidViewModel {
     }
     public void cargarPerfil() {
         String token = recuperarToken();
+        Log.d("token", "cargarPerfil: "+token);
         if (token != null) {
             ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
             Call<Propietario> prop = endpoint.getPerfil(token);

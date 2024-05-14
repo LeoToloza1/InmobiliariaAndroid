@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_perfil" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_Inmuebles"
         android:name="com.leotoloza.menu.ui.Inmuebles.InmuebleFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:label="@string/Inmuebles"
+        tools:layout="@layout/fragment_inmuebles" >
+        <action
+            android:id="@+id/action_nav_Inmuebles_to_detalleInmueble"
+            app:destination="@id/detalleInmueble" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -27,4 +31,13 @@
         android:name="com.leotoloza.menu.ui.mapa.MapsFragment"
         android:label="@string/Inmobiliaria"
         tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/detalleInmueble"
+        android:name="com.leotoloza.menu.ui.Inmuebles.InmuebleDetalleFragment"
+        android:label="@string/Detalle"
+        tools:layout="@layout/fragment_inmueble_detalle" >
+        <action
+            android:id="@+id/action_detalleInmueble_to_nav_Inmuebles"
+            app:destination="@id/nav_Inmuebles" />
+    </fragment>
 </navigation>

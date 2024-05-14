@@ -20,7 +20,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public class ApiClient {
-    public static final String URLBASE ="http://192.168.0.105:5000/";
+    public static final String URLBASE ="http://192.168.0.102:5000/";
     private static ApiInmobiliaria apiInmobiliaria;
 
     public static ApiInmobiliaria getApiInmobiliaria(){

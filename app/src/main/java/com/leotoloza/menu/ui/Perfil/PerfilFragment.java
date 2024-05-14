@@ -75,9 +75,8 @@ private PerfilViewModel viewModel;
                 email.setText(propietario.getEmail());
                 pass.setText("contraseña");
                 telefono.setText(propietario.getTelefono()+"");
-                // Construir la URL completa para la foto del propietario
                 String urlFoto = urlBase + propietario.getAvatarUrl();
-                Log.d("salida", "RUTA FOTO --> "+urlFoto);
+//                Log.d("salida", "RUTA FOTO --> "+urlFoto);
 
                 Glide.with(requireContext())
                         .load(urlFoto)

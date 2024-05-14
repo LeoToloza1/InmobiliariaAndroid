@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.leotoloza.menu.modelo.Inmueble;
+import com.leotoloza.menu.modelo.Propietario;
 import com.leotoloza.menu.request.ApiClient;
 
 import java.util.List;
@@ -34,32 +35,36 @@ public class InmuebleViewModel extends AndroidViewModel {
         }
         return inmueblesLiveData;
     }
-    public String recuperarToken() {
-        SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria", 0);
-        String token = sp.getString("tokenAcceso", null);
+
+
+    public void cargarInmuebles() {
+        String token = recuperarToken();
         if (token != null) {
-            cargarInmuebles();
-            return token;
+            ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
+            Call<List<Inmueble>> inmueble = endpoint.getInmuebles(token);
+            inmueble.enqueue(new Callback<List<Inmueble>>() {
+                @Override
+                public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
+                    if (response.isSuccessful()) {
+                        List<Inmueble> inmuebleList = (List<Inmueble>) response.body();
+                        inmueblesLiveData.setValue(inmuebleList);
+                    } else {
+                        mostrarMensajeError("Error al cargar el perfil: " + response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Inmueble>> call, Throwable t) {
+                    mostrarMensajeError("Ocurrió un error al consultar su perfil: " + t.getMessage());
+                }
+            });
         } else {
             mostrarMensajeError("Token vencido, por favor inicie sesión nuevamente");
-            return null;
         }
     }
-
-    private void cargarInmuebles() {
-        ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
-        Call<List<Inmueble>> listaInmuebles = endpoint.getInmuebles(recuperarToken());
-        listaInmuebles.enqueue(new Callback<List<Inmueble>>() {
-            @Override
-            public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Inmueble>> call, Throwable t) {
-
-            }
-        });
+    private String recuperarToken() {
+        SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria", 0);
+        return "Bearer "+sp.getString("tokenAcceso", null);
     }
 
     private void mostrarMensajeError(String mensaje) {

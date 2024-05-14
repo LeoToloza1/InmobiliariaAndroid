@@ -12,8 +12,9 @@ private double precio;
 private Propietario propietario;
 private String estado;
 private String descripcion;
+private String avatarUrl;
 
-    public Inmueble(String direccion, String uso, TipoInmueble tipo, int ambientes, String coordenadas, double precio, Propietario propietario, String estado, String descripcion) {
+    public Inmueble(String direccion, String uso, TipoInmueble tipo, int ambientes, String coordenadas, double precio, Propietario propietario, String estado, String descripcion, String avtarUrl) {
         this.direccion = direccion;
         this.uso = uso;
         this.tipo = tipo;
@@ -23,6 +24,18 @@ private String descripcion;
         this.propietario = propietario;
         this.estado = estado;
         this.descripcion = descripcion;
+        this.avatarUrl = avtarUrl;
+    }
+
+    public Inmueble() {
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getDireccion() {
