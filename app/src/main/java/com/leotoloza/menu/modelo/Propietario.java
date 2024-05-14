@@ -5,23 +5,40 @@ import com.google.gson.annotations.SerializedName;
 public class Propietario implements Serializable {
     private String nombre;
     private String apellido;
+    private String dni;
     private String email;
     private String password;
     private long telefono;
+    private String avatarUrl;
 
-    public Propietario(String nombre, String apellido, String email, String password, long telefono) {
+    public Propietario(String nombre, String apellido,String dni, String email, String password, long telefono,String avatarUrl) {
         this.nombre = nombre;
         this.apellido = apellido;
+        this.dni = dni;
         this.email = email;
         this.password = password;
         this.telefono = telefono;
+        this.avatarUrl = avatarUrl;
     }
 
-    public Propietario(String email, String password) {
-        this.email = email;
-        this.password = password;
+    public Propietario() {
     }
 
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
     public String getNombre() {
         return nombre;
     }

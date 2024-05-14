@@ -10,12 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.leotoloza.menu.ApiClient;
+import com.leotoloza.menu.request.ApiClient;
 import com.leotoloza.menu.MainActivity;
 import com.leotoloza.menu.modelo.LoginModel;
-import com.leotoloza.menu.modelo.Propietario;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,7 +67,6 @@ public class LoginViewModel extends AndroidViewModel {
     SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria",0);
     SharedPreferences.Editor editor = sp.edit();
     editor.putString("tokenAcceso",token);
-    Log.d("salida", "guardarSP: "+token);
     editor.commit();
     }
 

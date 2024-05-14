@@ -3,23 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_perfil">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.leotoloza.menu.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_perfil"
+        android:name="com.leotoloza.menu.ui.Perfil.PerfilFragment"
+        android:label="@string/Perfil"
+        tools:layout="@layout/fragment_perfil" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.leotoloza.menu.ui.gallery.GalleryFragment"
+        android:name="com.leotoloza.menu.ui.Inmuebles.InmuebleFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.leotoloza.menu.ui.slideshow.SlideshowFragment"
+        android:name="com.leotoloza.menu.ui.Contratos.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.leotoloza.menu.ui.mapa.MapsFragment"
+        android:label="@string/Inmobiliaria"
+        tools:layout="@layout/fragment_maps" />
 </navigation>

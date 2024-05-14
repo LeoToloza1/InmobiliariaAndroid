@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Perfil.PerfilFragment">
+
+    <TextView
+        android:id="@+id/TVCartel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Perfil de Usuario"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@id/TVCartel"
+        app:layout_constraintStart_toStartOf="@id/TVCartel"
+        app:layout_constraintTop_toBottomOf="@+id/TVCartel" />
+
+    <EditText
+        android:id="@+id/etApellido"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Apellido"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@id/etNombre"
+        app:layout_constraintStart_toStartOf="@id/etNombre"
+        app:layout_constraintTop_toBottomOf="@+id/etNombre" />
+
+    <EditText
+        android:id="@+id/etDni"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="DNI"
+        android:enabled="false"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@id/etApellido"
+        app:layout_constraintStart_toStartOf="@id/etApellido"
+        app:layout_constraintTop_toBottomOf="@+id/etApellido" />
+
+    <EditText
+        android:id="@+id/etMail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Mail"
+        android:enabled="false"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@id/etDni"
+        app:layout_constraintStart_toStartOf="@id/etDni"
+        app:layout_constraintTop_toBottomOf="@+id/etDni" />
+
+    <EditText
+        android:id="@+id/etPass"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Password"
+        android:enabled="false"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@id/etMail"
+        app:layout_constraintStart_toStartOf="@id/etMail"
+        app:layout_constraintTop_toBottomOf="@+id/etMail" />
+
+    <EditText
+        android:id="@+id/etTelefono"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Telefono"
+        android:inputType="number"
+        android:enabled="false"
+        app:layout_constraintEnd_toEndOf="@id/etPass"
+        app:layout_constraintStart_toStartOf="@id/etPass"
+        app:layout_constraintTop_toBottomOf="@+id/etPass" />
+
+    <ImageView
+        android:id="@+id/ivFoto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintDimensionRatio="H,16:9"
+        app:layout_constraintEnd_toEndOf="@id/etTelefono"
+        app:layout_constraintStart_toStartOf="@id/etTelefono"
+        app:layout_constraintTop_toBottomOf="@+id/etTelefono"
+        tools:srcCompat="@tools:sample/avatars"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <Button
+        android:id="@+id/btGuardar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Editar"
+        app:layout_constraintEnd_toEndOf="@id/ivFoto"
+        app:layout_constraintStart_toStartOf="@id/ivFoto"
+        app:layout_constraintTop_toBottomOf="@+id/ivFoto" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
