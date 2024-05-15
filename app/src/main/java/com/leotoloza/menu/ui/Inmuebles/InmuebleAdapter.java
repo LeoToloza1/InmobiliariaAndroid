@@ -42,10 +42,11 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
     }
     @Override
     public void onBindViewHolder(@NonNull InmuebleAdapter.ViewHolder holder, int position) {
-        String urlBase = ApiClient.URLBASE + "img/uploads/";
+
         Inmueble inmueble= listaInmuebles.get(position);
     holder.direccion.setText(inmueble.getDireccion());
     holder._precio.setText(inmueble.getPrecio()+"");
+        String urlBase = ApiClient.URLBASE + "img/uploads/";
     String urlFoto =urlBase +  inmueble.getAvatarUrl();
         Glide.with(context)
                 .load(urlFoto)

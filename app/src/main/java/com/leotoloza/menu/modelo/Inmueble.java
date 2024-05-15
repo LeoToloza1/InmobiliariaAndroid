@@ -5,7 +5,8 @@ import java.io.Serializable;
 public class Inmueble implements Serializable {
 private String direccion;
 private String uso;
-private TipoInmueble tipo;
+private int tipoInmuebleid;
+private TipoInmueble tipoInmueble;
 private int ambientes;
 private String coordenadas;
 private double precio;
@@ -14,10 +15,11 @@ private String estado;
 private String descripcion;
 private String avatarUrl;
 
-    public Inmueble(String direccion, String uso, TipoInmueble tipo, int ambientes, String coordenadas, double precio, Propietario propietario, String estado, String descripcion, String avtarUrl) {
+    public Inmueble(String direccion,String uso, int tipoInmuebleid, TipoInmueble tipo, int ambientes, String coordenadas, double precio, Propietario propietario, String estado, String descripcion, String avtarUrl) {
         this.direccion = direccion;
         this.uso = uso;
-        this.tipo = tipo;
+        this.tipoInmuebleid = tipoInmuebleid;
+        this.tipoInmueble = tipo;
         this.ambientes = ambientes;
         this.coordenadas = coordenadas;
         this.precio = precio;
@@ -30,6 +32,13 @@ private String avatarUrl;
     public Inmueble() {
     }
 
+    public int getTipoInmuebleId() {
+        return tipoInmuebleid;
+    }
+
+    public void setTipoInmuebleId(int tipoInmuebleid) {
+        this.tipoInmuebleid = tipoInmuebleid;
+    }
     public String getAvatarUrl() {
         return avatarUrl;
     }
@@ -55,11 +64,11 @@ private String avatarUrl;
     }
 
     public TipoInmueble getTipo() {
-        return tipo;
+        return tipoInmueble;
     }
 
     public void setTipo(TipoInmueble tipo) {
-        this.tipo = tipo;
+        this.tipoInmueble = tipo;
     }
 
     public int getAmbientes() {

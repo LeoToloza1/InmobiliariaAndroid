@@ -36,7 +36,6 @@ private PerfilViewModel viewModel;
         TextView apellido = binding.etApellido;
         TextView dni = binding.etDni;
         TextView email = binding.etMail;
-        TextView pass = binding.etPass;
         TextView telefono = binding.etTelefono;
         ImageView foto = binding.ivFoto;
         String urlBase = ApiClient.URLBASE + "img/uploads/";
@@ -47,11 +46,10 @@ private PerfilViewModel viewModel;
                 apellido.setEnabled(habilitar);
                 dni.setEnabled(habilitar);
                 email.setEnabled(habilitar);
-                pass.setEnabled(habilitar);
                 telefono.setEnabled(habilitar);
             }
         });
-        Button btnEditar = binding.btGuardar;
+        Button btnEditar = binding.btEditar;
         viewModel.getTextoBotonLiveData().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String texto) {
@@ -59,11 +57,31 @@ private PerfilViewModel viewModel;
             }
         });
 
-        btnEditar.setOnClickListener(new View.OnClickListener() {
+        binding.btEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewModel.habilitarCampos();
                 viewModel.cambiarTextoBoton();
+                binding.btEditar.setVisibility(View.INVISIBLE);
+                binding.btGuardarCambios.setVisibility(View.VISIBLE);
+            }
+        });
+
+        binding.btGuardarCambios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nombre = binding.etNombre.getText().toString();
+                String apellido = binding.etApellido.getText().toString();
+                String dni = binding.etDni.getText().toString();
+                String telefono = binding.etTelefono.getText().toString();
+                Propietario propietario = new Propietario();
+                propietario.setNombre(nombre);
+                propietario.setApellido(apellido);
+                propietario.setDni(dni);
+                viewModel.editarPerfil(propietario);
+                binding.btGuardarCambios.setVisibility(View.INVISIBLE);
+                binding.btEditar.setVisibility(View.VISIBLE);
+                viewModel.habilitarCampos();
             }
         });
         viewModel.getMutablePropietario().observe(getViewLifecycleOwner(), new Observer<Propietario>() {
@@ -73,7 +91,6 @@ private PerfilViewModel viewModel;
                 apellido.setText(propietario.getApellido());
                 dni.setText(propietario.getDni());
                 email.setText(propietario.getEmail());
-                pass.setText("contraseña");
                 telefono.setText(propietario.getTelefono()+"");
                 String urlFoto = urlBase + propietario.getAvatarUrl();
 //                Log.d("salida", "RUTA FOTO --> "+urlFoto);
@@ -88,6 +105,9 @@ private PerfilViewModel viewModel;
         viewModel.cargarPerfil();
         return root;
     }
+
+
+
 
     @Override
     public void onDestroyView() {

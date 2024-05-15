@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.leotoloza.menu.R;
 import com.leotoloza.menu.databinding.FragmentInmuebleDetalleBinding;
 import com.leotoloza.menu.modelo.Inmueble;
+import com.leotoloza.menu.request.ApiClient;
 
 
 public class InmuebleDetalleFragment extends Fragment {
@@ -24,17 +26,25 @@ public class InmuebleDetalleFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentInmuebleDetalleBinding.inflate(inflater, container, false);
         viewModel= new ViewModelProvider(this).get(InmuebleDetalleViewModel.class);
+        String urlFoto = ApiClient.URLBASE+"api";
         viewModel.getInmuebleMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Inmueble>() {
             @Override
             public void onChanged(Inmueble inmueble) {
-            binding.Direccion.setText(inmueble.getDireccion());
-            binding.Precio.setText(inmueble.getPrecio()+"");
-            binding.TipoInmueble.setText(inmueble.getTipo().getTipo());
-            binding.Uso.setText(inmueble.getUso());
-            binding.Ambientes.setText(inmueble.getAmbientes());
+            binding.Direccion.setText("Direccion: "+inmueble.getDireccion());
+            binding.Precio.setText("Precio: $"+inmueble.getPrecio());
+            binding.TipoInmueble.setText("Tipo: "+inmueble.getTipo().getTipo());
+            binding.Uso.setText("Uso: "+inmueble.getUso());
+            binding.Ambientes.setText("Ambientes: "+inmueble.getAmbientes()+"");
             boolean estado = inmueble.getEstado().equals("Disponible");
             binding.EstadoSwitch.setChecked(estado);
-            binding.Descripcion.setText(inmueble.getDescripcion());
+            binding.Descripcion.setText("Descripción: "+inmueble.getDescripcion());
+                String urlBase = ApiClient.URLBASE + "img/uploads/";
+                String urlFoto =urlBase +  inmueble.getAvatarUrl();
+                Glide.with(getContext())
+                        .load(urlFoto)
+                        .placeholder(R.drawable.loading)
+                        .error(R.drawable.error)
+                        .into(binding.imagen);
             }
         });
     viewModel.recuperarInmueble(getArguments());

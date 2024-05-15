@@ -74,46 +74,33 @@
         app:layout_constraintTop_toBottomOf="@+id/etDni" />
 
     <EditText
-        android:id="@+id/etPass"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Password"
-        android:enabled="false"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@id/etMail"
-        app:layout_constraintStart_toStartOf="@id/etMail"
-        app:layout_constraintTop_toBottomOf="@+id/etMail" />
-
-    <EditText
         android:id="@+id/etTelefono"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
+        android:enabled="false"
         android:hint="Telefono"
         android:inputType="number"
-        android:enabled="false"
-        app:layout_constraintEnd_toEndOf="@id/etPass"
-        app:layout_constraintStart_toStartOf="@id/etPass"
-        app:layout_constraintTop_toBottomOf="@+id/etPass" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etMail" />
 
     <ImageView
         android:id="@+id/ivFoto"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintDimensionRatio="H,16:9"
-        app:layout_constraintEnd_toEndOf="@id/etTelefono"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@id/etTelefono"
         app:layout_constraintTop_toBottomOf="@+id/etTelefono"
-        tools:srcCompat="@tools:sample/avatars"
-        android:clickable="true"
-        android:focusable="true" />
+        tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/btGuardar"
+        android:id="@+id/btEditar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -121,5 +108,17 @@
         app:layout_constraintEnd_toEndOf="@id/ivFoto"
         app:layout_constraintStart_toStartOf="@id/ivFoto"
         app:layout_constraintTop_toBottomOf="@+id/ivFoto" />
+
+    <Button
+        android:id="@+id/btGuardarCambios"
+        android:layout_width="408dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="8dp"
+        android:text="Guardar cambios"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@id/btEditar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/btEditar"
+        app:layout_constraintTop_toBottomOf="@+id/btEditar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

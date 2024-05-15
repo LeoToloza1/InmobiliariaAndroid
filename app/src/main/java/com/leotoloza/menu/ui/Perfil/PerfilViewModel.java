@@ -78,8 +78,7 @@ public class PerfilViewModel extends AndroidViewModel {
                 @Override
                 public void onResponse(Call<Propietario> call, Response<Propietario> response) {
                     if (response.isSuccessful()) {
-                        Propietario propietario = response.body();
-                        mutablePropietario.setValue(propietario);
+                        mutablePropietario.postValue(response.body());
                     } else {
                         mostrarMensajeError("Error al cargar el perfil: " + response.message());
                     }
@@ -95,6 +94,34 @@ public class PerfilViewModel extends AndroidViewModel {
         }
     }
 
+    public void editarPerfil(Propietario propietario){
+        String token = recuperarToken();
+        ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
+        Call<Propietario> prop = endpoint.editarPerfil(token,propietario);
+        prop.enqueue(new Callback<Propietario>() {
+            @Override
+            public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+                Log.d("salida", "onResponse: "+call.request());
+                Log.d("salida", "onResponse: "+response.raw());
+                Log.d("salida", "onResponse: "+response.errorBody());
+                if (response.isSuccessful()) {
+                    mutablePropietario.postValue(response.body());
+                } else {
+                    Log.d("salida", "onResponse: "+response.message());
+                    Log.d("salida", "onResponse: "+response.headers());
+                    Log.d("salida", "onResponse: "+response.raw());
+                    mostrarMensajeError("Error al Actualizar el perfil: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Propietario> call, Throwable t) {
+                mostrarMensajeError("Ocurrió un error al Actualizar su perfil: " + t.getMessage());
+            }
+        });
+
+
+    }
     private String recuperarToken() {
         SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria", 0);
         return "Bearer "+sp.getString("tokenAcceso", null);
@@ -103,4 +130,8 @@ public class PerfilViewModel extends AndroidViewModel {
     private void mostrarMensajeError(String mensaje) {
         Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
     }
+
+
+
+
 }

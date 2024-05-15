@@ -18,9 +18,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public class ApiClient {
-    public static final String URLBASE ="http://192.168.0.102:5000/";
+    public static final String URLBASE ="http://192.168.0.106:5000/";
     private static ApiInmobiliaria apiInmobiliaria;
 
     public static ApiInmobiliaria getApiInmobiliaria(){
@@ -44,6 +45,11 @@ public class ApiClient {
 
         @GET("api/Propietario")
         Call<Propietario> getPerfil(@Header("Authorization") String token);
+
+        @PUT("api/Propietario/actualizar")
+        Call<Propietario> editarPerfil(@Header("Authorization") String token, @Body Propietario propietario);
+
+
     }
 
 }

@@ -8,10 +8,10 @@ public class Propietario implements Serializable {
     private String dni;
     private String email;
     private String password;
-    private long telefono;
+    private String telefono;
     private String avatarUrl;
 
-    public Propietario(String nombre, String apellido,String dni, String email, String password, long telefono,String avatarUrl) {
+    public Propietario(String nombre, String apellido,String dni, String email, String password, String telefono,String avatarUrl) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -71,11 +71,24 @@ public class Propietario implements Serializable {
         this.password = password;
     }
 
-    public long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(long telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    @Override
+    public String toString() {
+        return "Propietario{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", dni='" + dni + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", telefono=" + telefono +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                '}';
     }
 }

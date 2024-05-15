@@ -4,12 +4,23 @@ import java.io.Serializable;
 
 public class TipoInmueble implements Serializable
 {
+    private int id;
     private String tipo;
-    private int borrado;
+    private boolean borrado;
 
-    public TipoInmueble(String tipo, int borrado) {
+    public TipoInmueble(int id, String tipo, boolean borrado) {
         this.tipo = tipo;
         this.borrado = borrado;
+    }
+    public TipoInmueble() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTipo() {
@@ -20,11 +31,16 @@ public class TipoInmueble implements Serializable
         this.tipo = tipo;
     }
 
-    public int getBorrado() {
+    public boolean getBorrado() {
         return borrado;
     }
 
-    public void setBorrado(int borrado) {
+    public void setBorrado(boolean borrado) {
         this.borrado = borrado;
+    }
+
+    @Override
+    public String toString() {
+        return tipo;
     }
 }
