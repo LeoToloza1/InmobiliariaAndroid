@@ -49,13 +49,13 @@ public class InmuebleViewModel extends AndroidViewModel {
                         List<Inmueble> inmuebleList = (List<Inmueble>) response.body();
                         inmueblesLiveData.setValue(inmuebleList);
                     } else {
-                        mostrarMensajeError("Error al cargar el perfil: " + response.message());
+                        mostrarMensajeError("Ocurrió un error al consultar sus Inmuebles: " + response.message());
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<Inmueble>> call, Throwable t) {
-                    mostrarMensajeError("Ocurrió un error al consultar su perfil: " + t.getMessage());
+                    mostrarMensajeError("Ocurrió un error al consultar sus Inmuebles " + t.getMessage());
                 }
             });
         } else {
@@ -68,6 +68,6 @@ public class InmuebleViewModel extends AndroidViewModel {
     }
 
     private void mostrarMensajeError(String mensaje) {
-        Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
     }
 }

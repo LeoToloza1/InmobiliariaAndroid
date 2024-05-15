@@ -3,6 +3,7 @@ package com.leotoloza.menu.modelo;
 import java.io.Serializable;
 
 public class Inmueble implements Serializable {
+private int id;
 private String direccion;
 private String uso;
 private int tipoInmuebleid;
@@ -15,7 +16,8 @@ private String estado;
 private String descripcion;
 private String avatarUrl;
 
-    public Inmueble(String direccion,String uso, int tipoInmuebleid, TipoInmueble tipo, int ambientes, String coordenadas, double precio, Propietario propietario, String estado, String descripcion, String avtarUrl) {
+    public Inmueble(int id, String direccion,String uso, int tipoInmuebleid, TipoInmueble tipo, int ambientes, String coordenadas, double precio, Propietario propietario, String estado, String descripcion, String avtarUrl) {
+        this.id = id;
         this.direccion = direccion;
         this.uso = uso;
         this.tipoInmuebleid = tipoInmuebleid;
@@ -30,6 +32,14 @@ private String avatarUrl;
     }
 
     public Inmueble() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getTipoInmuebleId() {
@@ -118,4 +128,13 @@ private String avatarUrl;
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    @Override
+    public String toString() {
+        return "Inmueble{" +
+                "id=" + id +
+                ", direccion='" + direccion + '\'' +
+                '}';
+    }
 }
+

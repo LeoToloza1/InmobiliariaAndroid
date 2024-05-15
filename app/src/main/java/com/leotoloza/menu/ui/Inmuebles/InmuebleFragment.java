@@ -34,7 +34,6 @@ private InmuebleViewModel viewModel;
      viewModel.getInmueblesLiveData().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
          @Override
          public void onChanged(List<Inmueble> inmuebleList) {
-                 Log.d("salida", "en el mutable");
                  InmuebleAdapter inmuebleAdapter = new InmuebleAdapter(inmuebleList,getContext());
                  GridLayoutManager glm=new GridLayoutManager(getContext(),1,GridLayoutManager.VERTICAL,false);
              listaInmuebles.setLayoutManager(glm);
@@ -42,7 +41,6 @@ private InmuebleViewModel viewModel;
                  inmuebleAdapter.setClickListener(new InmuebleAdapter.ClickListener() {
                      @Override
                      public void clickDetalle(Inmueble inmueble) {
-                         Log.d("salida", "clickDetalle: llega");
                          Bundle bundle = new Bundle();
                          bundle.putSerializable("inmueble", inmueble);
                          Navigation.findNavController(requireView()).navigate(R.id.action_nav_Inmuebles_to_detalleInmueble, bundle);

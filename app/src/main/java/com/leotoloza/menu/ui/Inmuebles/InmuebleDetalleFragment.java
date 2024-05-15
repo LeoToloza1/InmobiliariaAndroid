@@ -7,8 +7,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import com.bumptech.glide.Glide;
 import com.leotoloza.menu.R;
@@ -27,12 +29,40 @@ public class InmuebleDetalleFragment extends Fragment {
         binding = FragmentInmuebleDetalleBinding.inflate(inflater, container, false);
         viewModel= new ViewModelProvider(this).get(InmuebleDetalleViewModel.class);
         String urlFoto = ApiClient.URLBASE+"api";
+        viewModel.getCamposEditablesLiveData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean habilitar) {
+                binding.EstadoSwitch.setEnabled(habilitar);
+            }
+        });
+        binding.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.habilitarCampos();
+                viewModel.cambiarTextoBoton();
+                binding.EstadoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            viewModel.habilitarInmueble(getArguments());
+                        }
+                    }
+                });
+            }
+        });
+
+viewModel.getTextoBotonLiveData().observe(getViewLifecycleOwner(), new Observer<String>() {
+    @Override
+    public void onChanged(String s) {
+        binding.editButton.setText(s);
+    }
+});
         viewModel.getInmuebleMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Inmueble>() {
             @Override
             public void onChanged(Inmueble inmueble) {
             binding.Direccion.setText("Direccion: "+inmueble.getDireccion());
             binding.Precio.setText("Precio: $"+inmueble.getPrecio());
-            binding.TipoInmueble.setText("Tipo: "+inmueble.getTipo().getTipo());
+            binding.TipoInmueble.setText("Tipo: "+inmueble.getTipo());
             binding.Uso.setText("Uso: "+inmueble.getUso());
             binding.Ambientes.setText("Ambientes: "+inmueble.getAmbientes()+"");
             boolean estado = inmueble.getEstado().equals("Disponible");

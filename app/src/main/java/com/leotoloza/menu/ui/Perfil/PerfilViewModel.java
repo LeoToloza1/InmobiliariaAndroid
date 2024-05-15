@@ -101,15 +101,10 @@ public class PerfilViewModel extends AndroidViewModel {
         prop.enqueue(new Callback<Propietario>() {
             @Override
             public void onResponse(Call<Propietario> call, Response<Propietario> response) {
-                Log.d("salida", "onResponse: "+call.request());
-                Log.d("salida", "onResponse: "+response.raw());
-                Log.d("salida", "onResponse: "+response.errorBody());
                 if (response.isSuccessful()) {
                     mutablePropietario.postValue(response.body());
+                    mostrarMensajeError("Su perfil se Actualizó correctamente");
                 } else {
-                    Log.d("salida", "onResponse: "+response.message());
-                    Log.d("salida", "onResponse: "+response.headers());
-                    Log.d("salida", "onResponse: "+response.raw());
                     mostrarMensajeError("Error al Actualizar el perfil: " + response.message());
                 }
             }
@@ -128,7 +123,7 @@ public class PerfilViewModel extends AndroidViewModel {
     }
 
     private void mostrarMensajeError(String mensaje) {
-        Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
     }
 
 
