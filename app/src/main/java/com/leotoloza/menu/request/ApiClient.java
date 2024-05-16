@@ -49,10 +49,9 @@ public class ApiClient {
 
         @PUT("api/Propietario/actualizar")
         Call<Propietario> editarPerfil(@Header("Authorization") String token, @Body Propietario propietario);
-
         @PATCH("api/Inmueble/habilitar/{id}")
         Call<Inmueble> habilitarInmueble(@Header("Authorization") String token, @Path("id") int id);
-
-
+        @POST("api/Inmueble/guardar")
+        Call<Inmueble> altaInmueble(@Header("Authorization") String token,@Body Inmueble inmueble);
     }
 }

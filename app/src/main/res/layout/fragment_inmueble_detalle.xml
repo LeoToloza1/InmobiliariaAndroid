@@ -83,16 +83,17 @@
         android:layout_marginTop="8dp"
         android:enabled="false" />
 
+
     <Switch
         android:id="@+id/EstadoSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Disponible"
+        android:layout_width="215dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
         android:enabled="false"
-        app:layout_constraintStart_toStartOf="@id/imagen"
+        android:text="Disponible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Ambientes" />
-
 
     <EditText
         android:id="@+id/Descripcion"

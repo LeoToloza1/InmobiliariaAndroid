@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.common.api.Api;
+import com.leotoloza.menu.Servicios.ToastPesonalizado;
 import com.leotoloza.menu.modelo.Inmueble;
 import com.leotoloza.menu.modelo.Propietario;
 import com.leotoloza.menu.request.ApiClient;
@@ -27,6 +28,7 @@ public class PerfilViewModel extends AndroidViewModel {
     private MutableLiveData<Propietario> mutablePropietario;
     private MutableLiveData<Boolean> camposEditablesLiveData;
     private MutableLiveData<String> textoBotonLiveData;
+    private ToastPesonalizado toast;
     private boolean editable;
     private Context context;
 
@@ -103,15 +105,15 @@ public class PerfilViewModel extends AndroidViewModel {
             public void onResponse(Call<Propietario> call, Response<Propietario> response) {
                 if (response.isSuccessful()) {
                     mutablePropietario.postValue(response.body());
-                    mostrarMensajeError("Su perfil se Actualizó correctamente");
+                    toast.mostrarMensaje(context,"Su perfil se Actualizó correctamente");
                 } else {
-                    mostrarMensajeError("Error al Actualizar el perfil: " + response.message());
+                    toast.mostrarMensaje(context,"Error al Actualizar el perfil: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Propietario> call, Throwable t) {
-                mostrarMensajeError("Ocurrió un error al Actualizar su perfil: " + t.getMessage());
+                toast.mostrarMensaje(context,"Ocurrió un error al Actualizar su perfil: " + t.getMessage());
             }
         });
 

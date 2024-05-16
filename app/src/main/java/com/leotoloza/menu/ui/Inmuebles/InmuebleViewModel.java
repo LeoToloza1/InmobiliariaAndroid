@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.leotoloza.menu.Servicios.ToastPesonalizado;
 import com.leotoloza.menu.modelo.Inmueble;
 import com.leotoloza.menu.modelo.Propietario;
 import com.leotoloza.menu.request.ApiClient;
@@ -23,6 +24,7 @@ import retrofit2.Response;
 
 public class InmuebleViewModel extends AndroidViewModel {
     private MutableLiveData<List<Inmueble>> inmueblesLiveData;
+    private ToastPesonalizado toast;
     private Context context;
     public InmuebleViewModel(@NonNull Application application) {
         super(application);
@@ -49,17 +51,17 @@ public class InmuebleViewModel extends AndroidViewModel {
                         List<Inmueble> inmuebleList = (List<Inmueble>) response.body();
                         inmueblesLiveData.setValue(inmuebleList);
                     } else {
-                        mostrarMensajeError("Ocurrió un error al consultar sus Inmuebles: " + response.message());
+                        toast.mostrarMensaje(context,"Ocurrió un error al consultar sus Inmuebles: " + response.message());
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<Inmueble>> call, Throwable t) {
-                    mostrarMensajeError("Ocurrió un error al consultar sus Inmuebles " + t.getMessage());
+                    toast.mostrarMensaje(context,"Ocurrió un error al consultar sus Inmuebles " + t.getMessage());
                 }
             });
         } else {
-            mostrarMensajeError("Token vencido, por favor inicie sesión nuevamente");
+            toast.mostrarMensaje(context,"Token vencido, por favor inicie sesión nuevamente");
         }
     }
     private String recuperarToken() {

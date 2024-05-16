@@ -12,6 +12,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.leotoloza.menu.Servicios.ToastPesonalizado;
 import com.leotoloza.menu.modelo.Inmueble;
 import com.leotoloza.menu.modelo.TipoInmueble;
 import com.leotoloza.menu.request.ApiClient;
@@ -28,6 +29,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
     private MutableLiveData<String> textoBotonLiveData;
     private MutableLiveData<Boolean> clickBtn;
     private boolean editable;
+    private ToastPesonalizado toast;
     private Context context;
 
     public InmuebleDetalleViewModel(@NonNull Application application) {
@@ -90,24 +92,21 @@ public MutableLiveData<Inmueble> getInmuebleMutableLiveData(){
                 public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
                     inmuebleMutableLiveData.setValue(response.body());
                     Log.d("salida", "onResponse habilitado: "+response.body());
-                    mostrarMensajeError("Su inmueble se actualizó correctamente");
+                    toast.mostrarMensaje(context,"Su inmueble se actualizó correctamente");
                 }
 
                 @Override
                 public void onFailure(Call<Inmueble> call, Throwable t) {
-            mostrarMensajeError("Ocurrio un error al actualizar el inmueble:" +t.getMessage());
+                    toast.mostrarMensaje(context,"Ocurrio un error al actualizar el inmueble:" +t.getMessage());
                 }
             });
         } else {
-            mostrarMensajeError("Token vencido, por favor inicie sesión nuevamente");
+            toast.mostrarMensaje(context,"Token vencido, por favor inicie sesión nuevamente");
         }
     }
     private String recuperarToken() {
         SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria", 0);
         return "Bearer "+sp.getString("tokenAcceso", null);
-    }
-    private void mostrarMensajeError(String mensaje) {
-        Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
     }
 
 }

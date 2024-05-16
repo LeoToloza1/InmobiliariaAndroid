@@ -1,5 +1,7 @@
 package com.leotoloza.menu.ui.Inmuebles;
 
+import static com.leotoloza.menu.request.ApiClient.URLBASE;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -28,7 +30,7 @@ public class InmuebleDetalleFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentInmuebleDetalleBinding.inflate(inflater, container, false);
         viewModel= new ViewModelProvider(this).get(InmuebleDetalleViewModel.class);
-        String urlFoto = ApiClient.URLBASE+"api";
+        String urlFoto = URLBASE+"api";
         viewModel.getCamposEditablesLiveData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean habilitar) {
@@ -68,7 +70,7 @@ viewModel.getTextoBotonLiveData().observe(getViewLifecycleOwner(), new Observer<
             boolean estado = inmueble.getEstado().equals("Disponible");
             binding.EstadoSwitch.setChecked(estado);
             binding.Descripcion.setText("Descripción: "+inmueble.getDescripcion());
-                String urlBase = ApiClient.URLBASE + "img/uploads/";
+                String urlBase = URLBASE + "img/uploads/";
                 String urlFoto =urlBase +  inmueble.getAvatarUrl();
                 Glide.with(getContext())
                         .load(urlFoto)
