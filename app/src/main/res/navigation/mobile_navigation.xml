@@ -19,8 +19,19 @@
         <action
             android:id="@+id/action_nav_Inmuebles_to_detalleInmueble"
             app:destination="@id/detalleInmueble" />
+        <action
+            android:id="@+id/action_nav_Inmuebles_to_nav_NuevoInmueble"
+            app:destination="@id/nav_NuevoInmueble" />
     </fragment>
-
+    <fragment
+        android:id="@+id/nav_NuevoInmueble"
+        android:name="com.leotoloza.menu.ui.Inmuebles.NuevoInmuebleFragment"
+        android:label="@string/Agregar_Nuevo_Inmueble"
+        tools:layout="@layout/fragment_nuevo_inmueble" >
+        <action
+            android:id="@+id/action_nav_NuevoInmueble_to_nav_Inmuebles"
+            app:destination="@id/nav_Inmuebles" />
+    </fragment>
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.leotoloza.menu.ui.Contratos.SlideshowFragment"

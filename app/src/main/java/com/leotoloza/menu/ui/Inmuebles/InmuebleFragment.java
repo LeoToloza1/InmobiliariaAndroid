@@ -1,5 +1,6 @@
 package com.leotoloza.menu.ui.Inmuebles;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,12 @@ private InmuebleViewModel viewModel;
         binding = FragmentInmueblesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         RecyclerView listaInmuebles = binding.lista;
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_nav_Inmuebles_to_nav_NuevoInmueble);
+            }
+        });
      viewModel.getInmueblesLiveData().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
          @Override
          public void onChanged(List<Inmueble> inmuebleList) {

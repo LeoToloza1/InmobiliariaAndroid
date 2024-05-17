@@ -1,5 +1,8 @@
 package com.leotoloza.menu.modelo;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.File;
 import java.io.Serializable;
 
 public class Inmueble implements Serializable {
@@ -15,6 +18,8 @@ private Propietario propietario;
 private String estado;
 private String descripcion;
 private String avatarUrl;
+    @SerializedName("avatarFile")
+    private File fotoFile;
 
     public Inmueble(int id, String direccion,String uso, int tipoInmuebleid, TipoInmueble tipo, int ambientes, String coordenadas, double precio, Propietario propietario, String estado, String descripcion, String avtarUrl) {
         this.id = id;
@@ -32,6 +37,22 @@ private String avatarUrl;
     }
 
     public Inmueble() {
+    }
+
+    public TipoInmueble getTipoInmueble() {
+        return tipoInmueble;
+    }
+
+    public void setTipoInmueble(TipoInmueble tipoInmueble) {
+        this.tipoInmueble = tipoInmueble;
+    }
+
+    public File getFotoFile() {
+        return fotoFile;
+    }
+
+    public void setFotoFile(File fotoFile) {
+        this.fotoFile = fotoFile;
     }
 
     public int getId() {
