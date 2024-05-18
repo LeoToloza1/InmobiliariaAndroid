@@ -7,125 +7,126 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".ui.Inmuebles.NuevoInmuebleFragment">
 
+    <ImageView
+        android:id="@+id/ivFoto"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/error"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/Galeria"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_width="409dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
         android:text="+Foto"
-        app:layout_constraintEnd_toEndOf="@id/imagen"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/imagen"
-        app:layout_constraintTop_toBottomOf="@+id/guardarButton" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFoto" />
 
-    <ImageView
-    android:id="@+id/imagen"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:scaleType="centerCrop"
-    app:layout_constraintBottom_toTopOf="@+id/Direccion"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:src="@drawable/loading" />
+    <EditText
+        android:id="@+id/Direccion"
+        android:layout_width="402dp"
+        android:layout_height="59dp"
+        android:hint="Dirección"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Galeria" />
 
-<EditText
-    android:id="@+id/Direccion"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:hint="Dirección"
-    android:textAlignment="center"
-    android:textSize="18sp"
-    app:layout_constraintEnd_toEndOf="@id/imagen"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="@id/imagen"
-    app:layout_constraintTop_toBottomOf="@id/imagen" />
+    <EditText
+        android:id="@+id/Descripcion"
+        android:layout_width="410dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="16dp"
+        android:hint="Descripción"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/EstadoSwitch" />
 
-<EditText
-    android:id="@+id/Descripcion"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:hint="Descripción"
-    android:textAlignment="center"
-    android:textSize="18sp"
-    app:layout_constraintEnd_toEndOf="@id/imagen"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="@id/imagen"
-    app:layout_constraintTop_toBottomOf="@id/EstadoSwitch" />
+    <Switch
+        android:id="@+id/EstadoSwitch"
+        android:layout_width="168dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:text="Disponible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Ambientes" />
 
-<Switch
-    android:id="@+id/EstadoSwitch"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:text="Disponible"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/Ambientes" />
+    <EditText
+        android:id="@+id/Uso"
+        android:layout_width="399dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="Uso"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/TipoInmueble" />
 
-<EditText
-    android:id="@+id/Uso"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:hint="Uso"
-    android:textAlignment="center"
-    android:textSize="18sp"
-    app:layout_constraintEnd_toEndOf="@id/imagen"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="@id/imagen"
-    app:layout_constraintTop_toBottomOf="@id/TipoInmueble" />
-
-<EditText
-    android:id="@+id/TipoInmueble"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:hint="Tipo"
-    android:textAlignment="center"
-    android:textSize="18sp"
-    app:layout_constraintEnd_toEndOf="@id/imagen"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="@id/imagen"
-    app:layout_constraintTop_toBottomOf="@id/Precio" />
+    <EditText
+        android:id="@+id/TipoInmueble"
+        android:layout_width="397dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:hint="Tipo"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Precio" />
 
     <Button
         android:id="@+id/guardarButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_width="396dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="28dp"
         android:text="Guardar"
-        app:layout_constraintEnd_toEndOf="@id/imagen"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/imagen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Descripcion" />
 
     <EditText
-    android:id="@+id/Ambientes"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:hint="Ambientes"
-    android:textAlignment="center"
-    android:textSize="18sp"
-    app:layout_constraintEnd_toEndOf="@id/imagen"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="@id/imagen"
-    app:layout_constraintTop_toBottomOf="@id/Uso" />
+        android:id="@+id/Ambientes"
+        android:layout_width="409dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:hint="Ambientes"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Uso" />
 
-<EditText
-    android:id="@+id/Precio"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:hint="Precio"
-    android:textAlignment="center"
-    android:textSize="18sp"
-    app:layout_constraintEnd_toEndOf="@id/imagen"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="@id/imagen"
-    app:layout_constraintTop_toBottomOf="@id/Direccion" />
+    <EditText
+        android:id="@+id/Precio"
+        android:layout_width="397dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="Precio"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Direccion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

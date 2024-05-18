@@ -18,8 +18,7 @@ private Propietario propietario;
 private String estado;
 private String descripcion;
 private String avatarUrl;
-    @SerializedName("avatarFile")
-    private File fotoFile;
+private File avatarFile;
 
     public Inmueble(int id, String direccion,String uso, int tipoInmuebleid, TipoInmueble tipo, int ambientes, String coordenadas, double precio, Propietario propietario, String estado, String descripcion, String avtarUrl) {
         this.id = id;
@@ -48,11 +47,11 @@ private String avatarUrl;
     }
 
     public File getFotoFile() {
-        return fotoFile;
+        return avatarFile;
     }
 
     public void setFotoFile(File fotoFile) {
-        this.fotoFile = fotoFile;
+        this.avatarFile = fotoFile;
     }
 
     public int getId() {
@@ -155,6 +154,17 @@ private String avatarUrl;
         return "Inmueble{" +
                 "id=" + id +
                 ", direccion='" + direccion + '\'' +
+                ", uso='" + uso + '\'' +
+                ", tipoInmuebleid=" + tipoInmuebleid +
+                ", tipoInmueble=" + tipoInmueble +
+                ", ambientes=" + ambientes +
+                ", coordenadas='" + coordenadas + '\'' +
+                ", precio=" + precio +
+                ", propietario=" + propietario +
+                ", estado='" + estado + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", fotoFile=" + avatarFile +
                 '}';
     }
 }

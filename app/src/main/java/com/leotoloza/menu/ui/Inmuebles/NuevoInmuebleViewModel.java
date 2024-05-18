@@ -15,29 +15,33 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.Gson;
+import com.leotoloza.menu.Servicios.RealPathUtil;
 import com.leotoloza.menu.Servicios.ToastPesonalizado;
 import com.leotoloza.menu.modelo.Inmueble;
 import com.leotoloza.menu.request.ApiClient;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NuevoInmuebleViewModel extends AndroidViewModel {
-    private MutableLiveData<Inmueble> inmuebleMutableLiveData;
     private MutableLiveData<Uri> uriMutableLiveData;
-    private MutableLiveData<File> mFotoFile;
-    private File directorio;
-
+    private MutableLiveData<Inmueble> inmuebleMutableLiveData;
     private Context context;
     private ToastPesonalizado toast;
-
     public NuevoInmuebleViewModel(@NonNull Application application) {
         super(application);
         context = application.getApplicationContext();
-        directorio = context.getFilesDir();
     }
 
     public LiveData<Uri> getUriMutable() {
@@ -45,6 +49,13 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
             uriMutableLiveData = new MutableLiveData<>();
         }
         return uriMutableLiveData;
+    }
+
+    public LiveData<Inmueble> getInmuebleMutableLiveData() {
+        if (inmuebleMutableLiveData == null) {
+            inmuebleMutableLiveData = new MutableLiveData<>();
+        }
+        return inmuebleMutableLiveData;
     }
 
     public void recibirFoto(ActivityResult result, Context context) {
@@ -55,45 +66,48 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
         }
     }
 
-    public MutableLiveData<Inmueble> getInmuebleMutableLiveData() {
-        if (inmuebleMutableLiveData == null) {
-            inmuebleMutableLiveData = new MutableLiveData<>();
+    public void agregarInmuebleConImagen(Inmueble inmueble, Uri imagenUri) {
+        if (inmueble.getDireccion().isEmpty() || inmueble.getAmbientes() == 0 || inmueble.getUso().isEmpty() || inmueble.getPrecio() == 0 || imagenUri == null) {
+            toast.mostrarMensaje(context, "Por favor complete todos los campos y seleccione una imagen.");
+            return;
         }
-        return inmuebleMutableLiveData;
-    }
-
-    public LiveData<File> getMFotoFile() {
-        if (mFotoFile == null) {
-            mFotoFile = new MutableLiveData<>();
-        }
-        return mFotoFile;
-    }
-
-    // Método para agregar un inmueble con imagen al servidor
-    public void agregarInmuebleConImagen(Inmueble inmueble, File imagenFile) {
-        inmueble.setFotoFile(imagenFile);
         String token = recuperarToken();
+        ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
         if (token != null) {
-            ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
-            Call<Inmueble> call = endpoint.altaInmueble(token, inmueble);
+            RequestBody inmuebleBody = RequestBody.create(MediaType.parse("application/json"), new Gson().toJson(inmueble));
+            String path = RealPathUtil.getRealPath(context, imagenUri);
+            File file = new File(path);
+            RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part imagePart = MultipartBody.Part.createFormData("img", file.getName(), fileBody);
+            RequestBody direccion = RequestBody.create(MediaType.parse("text/plain"), inmueble.getDireccion());
+            RequestBody ambientes = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getAmbientes()));
+            RequestBody uso = RequestBody.create(MediaType.parse("text/plain"), inmueble.getUso());
+            inmueble.setTipoInmuebleId(1);
+            RequestBody tipoInmuebleid = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getTipoInmuebleId()));
+            RequestBody coordenadas = RequestBody.create(MediaType.parse("text/plain"), inmueble.getCoordenadas());
+            RequestBody precio = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getPrecio()));
+            RequestBody descripcion = RequestBody.create(MediaType.parse("text/plain"), inmueble.getDescripcion());
+
+            Call<Inmueble> call = endpoint.CargarInmueble(token, direccion, uso,tipoInmuebleid,ambientes, coordenadas, precio, descripcion, imagePart);
             call.enqueue(new Callback<Inmueble>() {
                 @Override
                 public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
-                    inmuebleMutableLiveData.setValue(response.body());
-                    Log.d("salida", "onResponse habilitado: " + response.body());
-                    toast.mostrarMensaje(context, "Su inmueble se agregó correctamente");
+                    if (response.isSuccessful()) {
+                        inmuebleMutableLiveData.setValue(response.body());
+                        toast.mostrarMensaje(context, "Inmueble agregado correctamente.");
+                    } else {
+                        toast.mostrarMensaje(context, "Error al agregar el inmueble: " + response.message());
+                    }
                 }
-
                 @Override
                 public void onFailure(Call<Inmueble> call, Throwable t) {
-                    toast.mostrarMensaje(context, "No se pudo agregar el inmueble: " + t.getMessage());
+                    toast.mostrarMensaje(context, "Error al agregar el inmueble: " + t.getMessage());
                 }
             });
         } else {
-            toast.mostrarMensaje(context, "Token vencido, por favor inicie sesión nuevamente");
+            toast.mostrarMensaje(context, "Token vencido, por favor inicie sesión nuevamente.");
         }
     }
-
     private String recuperarToken() {
         SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria", 0);
         return "Bearer " + sp.getString("tokenAcceso", null);

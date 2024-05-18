@@ -8,18 +8,19 @@ import com.leotoloza.menu.modelo.Propietario;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public class ApiClient {
@@ -49,9 +50,23 @@ public class ApiClient {
 
         @PUT("api/Propietario/actualizar")
         Call<Propietario> editarPerfil(@Header("Authorization") String token, @Body Propietario propietario);
+
         @PATCH("api/Inmueble/habilitar/{id}")
         Call<Inmueble> habilitarInmueble(@Header("Authorization") String token, @Path("id") int id);
+
+        @Multipart
         @POST("api/Inmueble/guardar")
-        Call<Inmueble> altaInmueble(@Header("Authorization") String token,@Body Inmueble inmueble);
+        Call<Inmueble> CargarInmueble(@Header("Authorization") String token,
+                                      @Part("direccion") RequestBody direccion,
+                                      @Part("uso") RequestBody uso,
+                                      @Part("tipoInmuebleid") RequestBody tipoInmuebleid,
+                                      @Part("ambientes") RequestBody ambientes,
+                                      @Part("coordenadas") RequestBody coordenadas,
+                                      @Part("precio") RequestBody precio,
+                                      @Part("descripcion") RequestBody descripcion,
+                                      @Part MultipartBody.Part imagen);
+
+//        @POST("api/Inmueble/guardar")
+//        Call<Inmueble> altaInmueble(@Header("Authorization") String token,@Body Inmueble inmueble);
     }
 }
