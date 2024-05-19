@@ -1,5 +1,7 @@
 package com.leotoloza.menu.ui.Perfil;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,14 +22,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.leotoloza.menu.R;
+import com.leotoloza.menu.Servicios.Dialogo;
 import com.leotoloza.menu.Servicios.ToastPesonalizado;
+import com.leotoloza.menu.databinding.ActivityLoginAcitivityBinding;
 import com.leotoloza.menu.databinding.FragmentPerfilBinding;
+import com.leotoloza.menu.login.LoginAcitivity;
 import com.leotoloza.menu.modelo.Propietario;
 import com.leotoloza.menu.request.ApiClient;
 
 import org.w3c.dom.Text;
 
-public class PerfilFragment extends Fragment {
+public class PerfilFragment extends Fragment  implements Dialogo.CambioContraseñaListener {
 private PerfilViewModel viewModel;
     private FragmentPerfilBinding binding;
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +79,12 @@ private PerfilViewModel viewModel;
                 binding.btGuardarCambios.setVisibility(View.VISIBLE);
             }
         });
+        viewModel.getPassword().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Dialogo.mostrarDialogoInformativo(getContext(),"Ocurrio un error",s);
+            }
+        });
 //TODO hacer un dialogo para poder resetear la contraseña
         binding.btGuardarCambios.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,8 +112,6 @@ private PerfilViewModel viewModel;
                 email.setText(propietario.getEmail());
                 telefono.setText(propietario.getTelefono()+"");
                 String urlFoto = urlBase + propietario.getAvatarUrl();
-//                Log.d("salida", "RUTA FOTO --> "+urlFoto);
-
                 Glide.with(requireContext())
                         .load(urlFoto)
                         .placeholder(R.drawable.loading)
@@ -116,14 +125,29 @@ private PerfilViewModel viewModel;
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu); // Infla el menú específico para este fragmento
+        inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
-            ToastPesonalizado.mostrarMensaje(getContext(),"Holaaaaaaaaa, soy un MENU");
+            Dialogo.mostrarDialogoConEntrada(getContext(), "Cambio de contraseña", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+            ToastPesonalizado.mostrarMensaje(getContext(), "Cambiando contraseña");
+                }
+            }, this);
+            return true;
+        }else if (item.getItemId() == R.id.action_logout) {
+            Dialogo.mostrarDialogoConfirmacion(getContext(), "Cerrar Sesión", "¿Estás seguro que deseas cerrar sesión?", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getActivity(), LoginAcitivity.class);
+                    viewModel.cerrarSesion();
+                    startActivity(intent);
+                }
+            });
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -133,5 +157,10 @@ private PerfilViewModel viewModel;
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onAceptar(String nuevaContraseña) {
+    viewModel.cambiarPassword(nuevaContraseña);
     }
 }

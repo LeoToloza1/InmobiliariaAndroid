@@ -22,4 +22,6 @@
     <string name="Agregar_Inmueble">Agregar Inmueble</string>
     <string name="Inqulinos">Inquilinos</string>
     <string name="Pagos">Listado de Pagos</string>
+    <string name="salir">Cerrar Sesión</string>
+    <string name="action_password">Cambiar Contraseña</string>
 </resources>

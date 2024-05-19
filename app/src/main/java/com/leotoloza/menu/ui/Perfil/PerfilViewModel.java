@@ -28,6 +28,7 @@ public class PerfilViewModel extends AndroidViewModel {
     private MutableLiveData<Propietario> mutablePropietario;
     private MutableLiveData<Boolean> camposEditablesLiveData;
     private MutableLiveData<String> textoBotonLiveData;
+    private MutableLiveData<String> password;
     private ToastPesonalizado toast;
     private boolean editable;
     private Context context;
@@ -37,6 +38,12 @@ public class PerfilViewModel extends AndroidViewModel {
         context = application.getApplicationContext();
         editable = false;
     }
+
+    public MutableLiveData<String> getPassword() {
+        if(password==null)password=new MutableLiveData<>();
+        return password;
+    }
+
     public LiveData<String> getTextoBotonLiveData() {
         if (textoBotonLiveData == null) {
             textoBotonLiveData = new MutableLiveData<>();
@@ -82,17 +89,17 @@ public class PerfilViewModel extends AndroidViewModel {
                     if (response.isSuccessful()) {
                         mutablePropietario.postValue(response.body());
                     } else {
-                        mostrarMensajeError("Error al cargar el perfil: " + response.message());
+                        ToastPesonalizado.mostrarMensaje(context,"Error al cargar el perfil: " + response.message());
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Propietario> call, Throwable t) {
-                    mostrarMensajeError("Ocurrió un error al consultar su perfil: " + t.getMessage());
+                    ToastPesonalizado.mostrarMensaje(context,"Ocurrió un error al consultar su perfil: " + t.getMessage());
                 }
             });
         } else {
-            mostrarMensajeError("Token vencido, por favor inicie sesión nuevamente");
+            ToastPesonalizado.mostrarMensaje(context,"Token vencido, por favor inicie sesión nuevamente");
         }
     }
 
@@ -105,15 +112,15 @@ public class PerfilViewModel extends AndroidViewModel {
             public void onResponse(Call<Propietario> call, Response<Propietario> response) {
                 if (response.isSuccessful()) {
                     mutablePropietario.postValue(response.body());
-                    toast.mostrarMensaje(context,"Su perfil se Actualizó correctamente");
+                    ToastPesonalizado.mostrarMensaje(context,"Su perfil se Actualizó correctamente");
                 } else {
-                    toast.mostrarMensaje(context,"Error al Actualizar el perfil: " + response.message());
+                    ToastPesonalizado.mostrarMensaje(context,"Error al Actualizar el perfil: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Propietario> call, Throwable t) {
-                toast.mostrarMensaje(context,"Ocurrió un error al Actualizar su perfil: " + t.getMessage());
+                ToastPesonalizado.mostrarMensaje(context,"Ocurrió un error al Actualizar su perfil: " + t.getMessage());
             }
         });
 
@@ -124,11 +131,39 @@ public class PerfilViewModel extends AndroidViewModel {
         return "Bearer "+sp.getString("tokenAcceso", null);
     }
 
-    private void mostrarMensajeError(String mensaje) {
-        Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
+public void cambiarPassword(String pass){
+        String token = recuperarToken();
+    ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
+    Call<String> respuesta= endpoint.cambiarPass(token,pass);
+    respuesta.enqueue(new Callback<String>() {
+        @Override
+        public void onResponse(Call<String> call, Response<String> response) {
+            if (response.isSuccessful()){
+                password.postValue("Mensaje: "+response.body());
+                Log.d("salida", "MENSAJE: "+response.message());
+                Log.d("salida", "TO STRING: "+response.toString());
+                Log.d("salida", "BODY: "+response.body());
+
+            }else{
+             password.postValue("Mensaje: " +response.message());
+                Log.d("salida", "MENSAJE: "+response.message());
+                Log.d("salida", "TO STRING: "+response.toString());
+                Log.d("salida", "BODY: "+response.body());
+            }
+        }
+        @Override
+        public void onFailure(Call<String> call, Throwable t) {
+        password.postValue(t.getMessage());
+            Log.d("salida", "MENSAJE: "+t.getMessage());
+            Log.d("salida", "TO STRING: "+t.toString());
+        }
+    });
+}
+    public void cerrarSesion(){
+        SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria",0);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("tokenAcceso","");
+        editor.commit();
     }
-
-
-
 
 }

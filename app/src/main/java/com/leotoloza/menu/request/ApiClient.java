@@ -80,6 +80,8 @@ public class ApiClient {
         @POST("api/recovery")
         @FormUrlEncoded
         Call<String> enviarMail(@Field("email") String email);
-
+        @PATCH("api/Propietario/actualizar/pass")
+        @FormUrlEncoded
+        Call<String> cambiarPass(@Header("Authorization")String token, @Field("pass") String pass);
     }
 }
