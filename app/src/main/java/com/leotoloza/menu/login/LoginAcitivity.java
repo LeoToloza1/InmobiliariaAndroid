@@ -47,7 +47,6 @@ binding.recuperarPass.setOnClickListener(new View.OnClickListener() {
         viewModel.getErrorMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                Toast.makeText(LoginAcitivity.this, "Ocurrio un error "+s, Toast.LENGTH_LONG).show();
                 binding.mensaje.setText(s);
             }
         });

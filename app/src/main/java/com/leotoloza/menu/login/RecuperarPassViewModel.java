@@ -2,6 +2,7 @@ package com.leotoloza.menu.login;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -41,14 +42,14 @@ public class RecuperarPassViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
-                    respuesta.postValue(response.body());
+                    respuesta.postValue("Mensaje: "+response.body());
                 } else {
-                    msjError.postValue(response.message());
+                    msjError.postValue("Mensaje de error:"+response.message());
                 }
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                msjError.postValue(t.getMessage());
+                msjError.postValue("Mensaje de error del servidor :"+t.getMessage());
             }
         });
     }
