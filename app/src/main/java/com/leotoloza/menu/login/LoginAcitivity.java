@@ -35,7 +35,7 @@ private LoginViewModel viewModel;
                 viewModel.login(email,pass);
             }
         });
-
+//TODO hacer reseteo de contraseña con un nuevo activity para poner el mail y enviar la nueva contraeseña
         viewModel.getErrorMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {

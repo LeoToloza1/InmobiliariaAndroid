@@ -1,23 +1,96 @@
 package com.leotoloza.menu.modelo;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class Contrato implements Serializable {
+    private int id;
+    private int inquilinoid;
+    private int inmuebleid;
+    private String fecha_inicio;
+    private String fecha_fin;
+    private String fecha_efectiva;
+    private double monto;
+    private boolean borrado;
     private Inquilino inquilino;
     private Inmueble inmueble;
-    private LocalDate fecha_inicio;
-    private LocalDate fecha_fin;
-    private LocalDate fecha_efectiva;
-    private double monto;
 
-    public Contrato(Inquilino inquilino, Inmueble inmueble, LocalDate fecha_inicio, LocalDate fecha_fin, LocalDate fecha_efectiva, double monto) {
-        this.inquilino = inquilino;
-        this.inmueble = inmueble;
+    public Contrato(int id, int inquilinoid, int inmuebleid, String fecha_inicio, String fecha_fin, String fecha_efectiva, double monto, boolean borrado, Inquilino inquilino, Inmueble inmueble) {
+        this.id = id;
+        this.inquilinoid = inquilinoid;
+        this.inmuebleid = inmuebleid;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
         this.fecha_efectiva = fecha_efectiva;
         this.monto = monto;
+        this.borrado = borrado;
+        this.inquilino = inquilino;
+        this.inmueble = inmueble;
+    }
+
+    // Getters y Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getInquilinoid() {
+        return inquilinoid;
+    }
+
+    public void setInquilinoid(int inquilinoid) {
+        this.inquilinoid = inquilinoid;
+    }
+
+    public int getInmuebleid() {
+        return inmuebleid;
+    }
+
+    public void setInmuebleid(int inmuebleid) {
+        this.inmuebleid = inmuebleid;
+    }
+
+    public String getFecha_inicio() {
+        return fecha_inicio;
+    }
+
+    public void setFecha_inicio(String fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
+    }
+
+    public String getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(String fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
+
+    public String getFecha_efectiva() {
+        return fecha_efectiva;
+    }
+
+    public void setFecha_efectiva(String fecha_efectiva) {
+        this.fecha_efectiva = fecha_efectiva;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+
+    public boolean isBorrado() {
+        return borrado;
+    }
+
+    public void setBorrado(boolean borrado) {
+        this.borrado = borrado;
     }
 
     public Inquilino getInquilino() {
@@ -34,37 +107,5 @@ public class Contrato implements Serializable {
 
     public void setInmueble(Inmueble inmueble) {
         this.inmueble = inmueble;
-    }
-
-    public LocalDate getFecha_inicio() {
-        return fecha_inicio;
-    }
-
-    public void setFecha_inicio(LocalDate fecha_inicio) {
-        this.fecha_inicio = fecha_inicio;
-    }
-
-    public LocalDate getFecha_fin() {
-        return fecha_fin;
-    }
-
-    public void setFecha_fin(LocalDate fecha_fin) {
-        this.fecha_fin = fecha_fin;
-    }
-
-    public LocalDate getFecha_efectiva() {
-        return fecha_efectiva;
-    }
-
-    public void setFecha_efectiva(LocalDate fecha_efectiva) {
-        this.fecha_efectiva = fecha_efectiva;
-    }
-
-    public double getMonto() {
-        return monto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
     }
 }

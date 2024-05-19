@@ -2,6 +2,7 @@ package com.leotoloza.menu.request;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.leotoloza.menu.modelo.Contrato;
 import com.leotoloza.menu.modelo.Inmueble;
 import com.leotoloza.menu.modelo.LoginModel;
 import com.leotoloza.menu.modelo.Propietario;
@@ -66,7 +67,9 @@ public class ApiClient {
                                       @Part("descripcion") RequestBody descripcion,
                                       @Part MultipartBody.Part imagen);
 
-//        @POST("api/Inmueble/guardar")
-//        Call<Inmueble> altaInmueble(@Header("Authorization") String token,@Body Inmueble inmueble);
+        @GET("api/contrato/alquilados")
+        Call<List<Contrato>> inmueblesAlquilados(@Header("Authorization") String token);
+
+
     }
 }

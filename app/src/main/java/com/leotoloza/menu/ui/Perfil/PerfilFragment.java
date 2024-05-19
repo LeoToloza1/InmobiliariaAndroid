@@ -66,7 +66,7 @@ private PerfilViewModel viewModel;
                 binding.btGuardarCambios.setVisibility(View.VISIBLE);
             }
         });
-
+//TODO hacer un dialogo para poder resetear la contraseña
         binding.btGuardarCambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

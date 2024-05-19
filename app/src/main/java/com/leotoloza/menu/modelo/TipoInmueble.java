@@ -8,7 +8,9 @@ public class TipoInmueble implements Serializable
     private String tipo;
     private boolean borrado;
 
-    public TipoInmueble(String tipo) {
+    public TipoInmueble(int id,String tipo)
+    {
+        this.id = id;
         this.tipo = tipo;
     }
     public TipoInmueble() {

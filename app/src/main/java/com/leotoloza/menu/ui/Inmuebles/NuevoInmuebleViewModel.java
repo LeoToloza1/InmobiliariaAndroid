@@ -14,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.Navigation;
 
 import com.google.gson.Gson;
+import com.leotoloza.menu.R;
 import com.leotoloza.menu.Servicios.RealPathUtil;
 import com.leotoloza.menu.Servicios.ToastPesonalizado;
 import com.leotoloza.menu.modelo.Inmueble;
@@ -82,7 +84,6 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
             RequestBody direccion = RequestBody.create(MediaType.parse("text/plain"), inmueble.getDireccion());
             RequestBody ambientes = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getAmbientes()));
             RequestBody uso = RequestBody.create(MediaType.parse("text/plain"), inmueble.getUso());
-            inmueble.setTipoInmuebleId(1);
             RequestBody tipoInmuebleid = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getTipoInmuebleId()));
             RequestBody coordenadas = RequestBody.create(MediaType.parse("text/plain"), inmueble.getCoordenadas());
             RequestBody precio = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getPrecio()));
@@ -95,6 +96,7 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
                     if (response.isSuccessful()) {
                         inmuebleMutableLiveData.setValue(response.body());
                         toast.mostrarMensaje(context, "Inmueble agregado correctamente.");
+
                     } else {
                         toast.mostrarMensaje(context, "Error al agregar el inmueble: " + response.message());
                     }

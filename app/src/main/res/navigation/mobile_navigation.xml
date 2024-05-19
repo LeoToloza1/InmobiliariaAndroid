@@ -26,17 +26,24 @@
     <fragment
         android:id="@+id/nav_NuevoInmueble"
         android:name="com.leotoloza.menu.ui.Inmuebles.NuevoInmuebleFragment"
-        android:label="@string/Agregar_Nuevo_Inmueble"
+        android:label="@string/Agregar_Inmueble"
         tools:layout="@layout/fragment_nuevo_inmueble" >
         <action
             android:id="@+id/action_nav_NuevoInmueble_to_nav_Inmuebles"
             app:destination="@id/nav_Inmuebles" />
+        <action
+            android:id="@+id/action_nav_NuevoInmueble_to_nav_Inmuebles2"
+            app:destination="@id/nav_Inmuebles" />
     </fragment>
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.leotoloza.menu.ui.Contratos.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_contratos"
+        android:name="com.leotoloza.menu.ui.Contratos.ContratoFragment"
+        android:label="@string/Contratos"
+        tools:layout="@layout/fragment_contratos" >
+        <action
+            android:id="@+id/action_nav_contratos_to_Inquilinos"
+            app:destination="@id/Inquilinos" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.leotoloza.menu.ui.mapa.MapsFragment"
@@ -50,5 +57,14 @@
         <action
             android:id="@+id/action_detalleInmueble_to_nav_Inmuebles"
             app:destination="@id/nav_Inmuebles" />
+    </fragment>
+    <fragment
+        android:id="@+id/Inquilinos"
+        android:name="com.leotoloza.menu.ui.Contratos.Inquilinos.InquilinoFragment"
+        android:label="@string/Inqulinos"
+        tools:layout="@layout/fragment_inquilino" >
+        <action
+            android:id="@+id/action_Inquilinos_to_nav_contratos"
+            app:destination="@id/nav_contratos" />
     </fragment>
 </navigation>
