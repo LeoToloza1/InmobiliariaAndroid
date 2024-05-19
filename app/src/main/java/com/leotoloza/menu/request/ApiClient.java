@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.leotoloza.menu.modelo.Contrato;
 import com.leotoloza.menu.modelo.Inmueble;
 import com.leotoloza.menu.modelo.LoginModel;
+import com.leotoloza.menu.modelo.Pago;
 import com.leotoloza.menu.modelo.Propietario;
 
 import java.util.List;
@@ -15,6 +16,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -70,6 +73,11 @@ public class ApiClient {
         @GET("api/contrato/alquilados")
         Call<List<Contrato>> inmueblesAlquilados(@Header("Authorization") String token);
 
+        @GET("api/pago")
+        Call<List<Pago>> pagosPorContrato(@Header("Authorization") String token);
+        @POST("api/recovery")
+        @FormUrlEncoded
+        Call<String> enviarMail(@Field("email") String email);
 
     }
 }

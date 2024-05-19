@@ -25,6 +25,14 @@ private LoginViewModel viewModel;
         super.onCreate(savedInstanceState);
         binding = ActivityLoginAcitivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.titulo.setText("Bienvenido de nuevo a: InmobiliApp");
+binding.recuperarPass.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        intent= new Intent(LoginAcitivity.this, RecuperarPassActivity.class);
+        startActivity(intent);
+    }
+});
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(LoginViewModel.class);
         Button btnLogin=binding.btnLogin;
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +48,7 @@ private LoginViewModel viewModel;
             @Override
             public void onChanged(String s) {
                 Toast.makeText(LoginAcitivity.this, "Ocurrio un error "+s, Toast.LENGTH_LONG).show();
-                Log.d("SALIDA", "LINEA46 onChanged: --->"+s);
+                binding.mensaje.setText(s);
             }
         });
     }

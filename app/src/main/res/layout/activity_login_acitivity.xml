@@ -6,10 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".login.LoginAcitivity">
+
+    <Button
+        android:id="@+id/recuperarPass"
+        android:layout_width="306dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="136dp"
+        android:text="Recuperar Contraseña"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="133dp"
-        android:layout_height="48dp"
+        android:layout_width="308dp"
+        android:layout_height="63dp"
         android:layout_marginTop="52dp"
         android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,8 +30,8 @@
 
     <EditText
         android:id="@+id/EditEmail"
-        android:layout_width="363dp"
-        android:layout_height="69dp"
+        android:layout_width="410dp"
+        android:layout_height="66dp"
         android:layout_marginTop="98dp"
         android:ems="10"
         android:hint="ingrese el email"
@@ -27,31 +39,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/titulo" />
 
     <EditText
         android:id="@+id/EditPass"
-        android:layout_width="340dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="108dp"
+        android:layout_width="406dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="76dp"
         android:ems="10"
         android:hint="ingrese su contraseña"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.301"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditEmail" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="259dp"
-        android:layout_height="46dp"
+        android:id="@+id/titulo"
+        android:layout_width="303dp"
+        android:layout_height="93dp"
         android:layout_marginTop="80dp"
-        android:text="Ingreso: "
+        android:text="Bienvenido a: "
         android:textAlignment="center"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mensaje"
+        android:layout_width="359dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="44dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 </androidx.constraintlayout.widget.ConstraintLayout>

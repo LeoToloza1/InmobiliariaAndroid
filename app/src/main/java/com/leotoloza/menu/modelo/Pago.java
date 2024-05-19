@@ -6,13 +6,13 @@ import java.time.LocalDate;
 public class Pago implements Serializable
 {
  private Contrato contrato;
- private LocalDate fecha_pago;
+ private String fecha_pago;
  private double importe;
  private String estado;
  private int numero_pago;
  private String detalle;
 
-    public Pago(Contrato contrato, LocalDate fecha_pago, double importe, String estado, int numero_pago, String detalle) {
+    public Pago(Contrato contrato, String fecha_pago, double importe, String estado, int numero_pago, String detalle) {
         this.contrato = contrato;
         this.fecha_pago = fecha_pago;
         this.importe = importe;
@@ -29,11 +29,11 @@ public class Pago implements Serializable
         this.contrato = contrato;
     }
 
-    public LocalDate getFecha_pago() {
+    public String getFecha_pago() {
         return fecha_pago;
     }
 
-    public void setFecha_pago(LocalDate fecha_pago) {
+    public void setFecha_pago(String fecha_pago) {
         this.fecha_pago = fecha_pago;
     }
 

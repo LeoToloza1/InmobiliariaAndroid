@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Pago.DetallePagoFragment">
+
+    <ImageView
+        android:id="@+id/imagenDetallePago"
+        android:layout_width="409dp"
+        android:layout_height="367dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/loading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/DireccionPago"
+        android:layout_width="409dp"
+        android:layout_height="40dp"
+        android:text="Dirección"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagenDetallePago" />
+
+    <TextView
+        android:id="@+id/importe"
+        android:layout_width="407dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="20dp"
+        android:text="Importe"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FechaPago" />
+
+    <TextView
+        android:id="@+id/FechaPago"
+        android:layout_width="407dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="28dp"
+        android:text="Fecha de Pago"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numero_pago" />
+
+    <TextView
+        android:id="@+id/numero_pago"
+        android:layout_width="407dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="24dp"
+        android:text="Número de pago"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PrecioPago" />
+
+    <TextView
+        android:id="@+id/DetallePago"
+        android:layout_width="405dp"
+        android:layout_height="221dp"
+        android:layout_marginTop="8dp"
+        android:text="Detalle"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/importe" />
+
+    <TextView
+        android:id="@+id/PrecioPago"
+        android:layout_width="406dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:text="Precio"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/DireccionPago" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,7 +46,6 @@ public void getListContratos(){
         @Override
         public void onResponse(Call<List<Contrato>> call, Response<List<Contrato>> response) {
             if(response.isSuccessful()){
-                toast.mostrarMensaje(context,"Trayendo el listado de contratos");
                 contratos.postValue(response.body());
             }else{
 toast.mostrarMensaje(context,"Ocurrio un error"+response.message());

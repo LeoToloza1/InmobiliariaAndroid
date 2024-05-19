@@ -3,6 +3,9 @@ package com.leotoloza.menu.ui.Perfil;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -10,12 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.leotoloza.menu.R;
+import com.leotoloza.menu.Servicios.ToastPesonalizado;
 import com.leotoloza.menu.databinding.FragmentPerfilBinding;
 import com.leotoloza.menu.modelo.Propietario;
 import com.leotoloza.menu.request.ApiClient;
@@ -25,13 +30,16 @@ import org.w3c.dom.Text;
 public class PerfilFragment extends Fragment {
 private PerfilViewModel viewModel;
     private FragmentPerfilBinding binding;
-
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true); // Indica que este fragmento tiene su propio menú de opciones
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication())).get(PerfilViewModel.class);
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        setMenuVisibility(true);
         TextView nombre = binding.etNombre;
         TextView apellido = binding.etApellido;
         TextView dni = binding.etDni;
@@ -106,8 +114,20 @@ private PerfilViewModel viewModel;
         return root;
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu); // Infla el menú específico para este fragmento
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
+            ToastPesonalizado.mostrarMensaje(getContext(),"Holaaaaaaaaa, soy un MENU");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onDestroyView() {

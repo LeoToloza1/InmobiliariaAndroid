@@ -45,6 +45,7 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
         Contrato contrato= listaContratos.get(position);
         holder.direccionContrato.setText("Direccion :"+contrato.getInmueble().getDireccion());
         holder.precioContrato.setText("Abono mensual :$"+contrato.getMonto()+"");
+        holder.fechasContrato.setText("Fecha de inicio: "+contrato.getFecha_inicio() +" \n "+"Fecha de fin: "+contrato.getFecha_fin());
         String urlBase = ApiClient.URLBASE + "img/uploads/";
         String urlFoto =urlBase +  contrato.getInmueble().getAvatarUrl();
         Glide.with(context)
@@ -72,11 +73,13 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView direccionContrato;
         TextView precioContrato;
+        TextView fechasContrato;
         ImageView imagenContrato;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             direccionContrato=itemView.findViewById(R.id.DireccionContrato);
             precioContrato = itemView.findViewById(R.id.PrecioContrato);
+            fechasContrato = itemView.findViewById(R.id.fechas);
             imagenContrato=itemView.findViewById(R.id.imagenContrato);
         }
     }

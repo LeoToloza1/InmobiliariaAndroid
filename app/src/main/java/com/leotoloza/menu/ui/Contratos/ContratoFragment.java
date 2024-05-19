@@ -45,7 +45,6 @@ GridLayoutManager glm=new GridLayoutManager(getContext(),1,GridLayoutManager.VER
             public void clickDetalle(Contrato contrato) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("contrato", contrato);
-                ToastPesonalizado.mostrarMensaje(getContext(),"Detalles del contrato");
                 Navigation.findNavController(requireView()).navigate(R.id.action_nav_contratos_to_Inquilinos, bundle);
             }
         });
