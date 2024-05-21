@@ -26,24 +26,25 @@ import com.leotoloza.menu.Servicios.Dialogo;
 import com.leotoloza.menu.Servicios.ToastPesonalizado;
 import com.leotoloza.menu.databinding.ActivityLoginAcitivityBinding;
 import com.leotoloza.menu.databinding.FragmentPerfilBinding;
-import com.leotoloza.menu.login.LoginAcitivity;
+import com.leotoloza.menu.login.LoginActivity;
 import com.leotoloza.menu.modelo.Propietario;
 import com.leotoloza.menu.request.ApiClient;
 
 import org.w3c.dom.Text;
 
-public class PerfilFragment extends Fragment  implements Dialogo.CambioContraseñaListener {
+public class PerfilFragment extends Fragment   {
 private PerfilViewModel viewModel;
     private FragmentPerfilBinding binding;
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true); // Indica que este fragmento tiene su propio menú de opciones
+        setHasOptionsMenu(true);
     }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication())).get(PerfilViewModel.class);
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        viewModel.setContext(requireActivity());
         setMenuVisibility(true);
         TextView nombre = binding.etNombre;
         TextView apellido = binding.etApellido;
@@ -96,6 +97,7 @@ private PerfilViewModel viewModel;
                 Propietario propietario = new Propietario();
                 propietario.setNombre(nombre);
                 propietario.setApellido(apellido);
+                propietario.setTelefono(telefono);
                 propietario.setDni(dni);
                 viewModel.editarPerfil(propietario);
                 binding.btGuardarCambios.setVisibility(View.INVISIBLE);
@@ -119,6 +121,18 @@ private PerfilViewModel viewModel;
                         .into(foto);
             }
         });
+        viewModel.getMenuItemSelectionLiveData().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer itemId) {
+                viewModel.handleMenuAction(itemId);
+            }
+        });
+        viewModel.getMenuActionLiveData().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+
+            }
+        });
         viewModel.cargarPerfil();
         return root;
     }
@@ -131,26 +145,9 @@ private PerfilViewModel viewModel;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
-            Dialogo.mostrarDialogoConEntrada(getContext(), "Cambio de contraseña", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-            ToastPesonalizado.mostrarMensaje(getContext(), "Cambiando contraseña");
-                }
-            }, this);
-            return true;
-        }else if (item.getItemId() == R.id.action_logout) {
-            Dialogo.mostrarDialogoConfirmacion(getContext(), "Cerrar Sesión", "¿Estás seguro que deseas cerrar sesión?", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(getActivity(), LoginAcitivity.class);
-                    viewModel.cerrarSesion();
-                    startActivity(intent);
-                }
-            });
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        viewModel.handleMenuAction(item.getItemId());
+        viewModel.onMenuItemSelected(item.getItemId());
+        return true;
     }
 
     @Override
@@ -159,8 +156,5 @@ private PerfilViewModel viewModel;
         binding = null;
     }
 
-    @Override
-    public void onAceptar(String nuevaContraseña) {
-    viewModel.cambiarPassword(nuevaContraseña);
-    }
+
 }
