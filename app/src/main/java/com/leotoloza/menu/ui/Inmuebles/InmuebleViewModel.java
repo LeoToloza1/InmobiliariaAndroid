@@ -69,7 +69,4 @@ public class InmuebleViewModel extends AndroidViewModel {
         return "Bearer "+sp.getString("tokenAcceso", null);
     }
 
-    private void mostrarMensajeError(String mensaje) {
-        Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
-    }
 }

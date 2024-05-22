@@ -43,10 +43,12 @@ public static void mostrarDialogoConfirmacion(Context contexto, String titulo, S
             public void onClick(DialogInterface dialog, int id) {
                 String nuevaContraseña = password.getText().toString();
                 String passworConfirmada =passwordConfirm.getText().toString();
-                if (cambioContraseñaListener != null && nuevaContraseña != passworConfirmada) {
-                    cambioContraseñaListener.onAceptar(nuevaContraseña);
-                }else{
-                    mostrarDialogoInformativo(contexto,"Contraseña diferentes", "por favor escriba las contraseñas nuevamente");
+                if (cambioContraseñaListener != null) {
+                    if (nuevaContraseña.equals(passworConfirmada)) {
+                        cambioContraseñaListener.onAceptar(nuevaContraseña);
+                    } else {
+                        mostrarDialogoInformativo(contexto, "Contraseñas diferentes", "Por favor, escriba las contraseñas nuevamente.");
+                    }
                 }
             }
         });

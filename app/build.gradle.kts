@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.play.services.location)
     implementation(libs.gms.play.services.maps)
     implementation(libs.biometric)
+    implementation(libs.mediarouter)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

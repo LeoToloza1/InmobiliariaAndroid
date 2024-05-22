@@ -30,36 +30,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PerfilViewModel extends AndroidViewModel implements Dialogo.CambioContraseñaListener{
-    private static final int OPCION_CONTRASEÑA = R.id.action_settings;
-    private static final int OPCION_SALIR = R.id.action_logout;
+public class PerfilViewModel extends AndroidViewModel{
     private MutableLiveData<Propietario> mutablePropietario;
     private MutableLiveData<Boolean> camposEditablesLiveData;
-    private MutableLiveData<Integer> _menuItemSelection;
-    private LiveData<Integer> menuItemSelectionLiveData;
-    private MutableLiveData<Integer> menuAction;
     private MutableLiveData<String> textoBotonLiveData;
-    private MutableLiveData<String> password;
+    private static MutableLiveData<String> password;
     private ToastPesonalizado toast;
     private boolean editable;
-    private Context context;
+    private static Context context;
     public PerfilViewModel(@NonNull Application application) {
         super(application);
-//        context = application.getApplicationContext();
+        context = application.getApplicationContext();
         editable = false;
     }
-    public LiveData<Integer> getMenuItemSelectionLiveData() {
-        if(menuItemSelectionLiveData==null)menuItemSelectionLiveData=new MutableLiveData<>();
-        return menuItemSelectionLiveData;
-    }
-    public void onMenuItemSelected(int itemId) {
-        if(_menuItemSelection==null)_menuItemSelection=new MutableLiveData<>();
-        _menuItemSelection.postValue(itemId);
-    }
-    public LiveData<Integer> getMenuActionLiveData() {
-        if(menuAction==null)menuAction=new MutableLiveData<>();
-        return menuAction;
-    }
+
     public MutableLiveData<String> getPassword() {
         if(password==null)password=new MutableLiveData<>();
         return password;
@@ -142,14 +126,12 @@ public class PerfilViewModel extends AndroidViewModel implements Dialogo.CambioC
             }
         });
     }
-    public void setContext(Context context) {
-        this.context = context;
-    }
-    private String recuperarToken() {
+
+    private static String recuperarToken() {
         SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria", 0);
         return "Bearer "+sp.getString("tokenAcceso", null);
     }
-public void cambiarPassword(String pass){
+public static void cambiarPassword(String pass){
         String token = recuperarToken();
     ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
     Call<String> respuesta= endpoint.cambiarPass(token,pass);
@@ -157,6 +139,10 @@ public void cambiarPassword(String pass){
         @Override
         public void onResponse(Call<String> call, Response<String> response) {
             if (response.isSuccessful()){
+                SharedPreferences sp = context.getSharedPreferences("datosPropietario", 0);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("passwordPropietario", pass);
+                editor.commit();
                 password.postValue("Mensaje: "+response.body());
             }else{
              password.postValue("Mensaje: " +response.message());
@@ -170,39 +156,6 @@ public void cambiarPassword(String pass){
         }
     });
 }
-    public void cerrarSesion(){
-        SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria",0);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("tokenAcceso","");
-        editor.commit();
-    }
 
-    public void handleMenuAction(int actionId) {
-        if (actionId == OPCION_CONTRASEÑA) {
-            if (context instanceof Activity && !((Activity) context).isFinishing()) {
-                Dialogo.mostrarDialogoConEntrada(context, "Cambio de contraseña", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ToastPesonalizado.mostrarMensaje(context, "Cambiando contraseña");
-                    }
-                }, this);
-            }
-        } else if (actionId == OPCION_SALIR) {
-            if (context instanceof Activity && !((Activity) context).isFinishing()) {
-                Dialogo.mostrarDialogoConfirmacion(context, "Cerrar Sesión", "¿Estás seguro que deseas cerrar sesión?", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        cerrarSesion();
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        context.startActivity(intent);
-                    }
-                });
-            }
-        }
-    }
-    @Override
-    public void onAceptar(String nuevaContraseña) {
-        PerfilViewModel.this.cambiarPassword(nuevaContraseña);
-    }
+
 }

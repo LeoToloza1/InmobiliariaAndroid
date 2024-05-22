@@ -2,15 +2,23 @@ package com.leotoloza.menu.ui.Inmuebles;
 
 import static android.app.Activity.RESULT_OK;
 
+import static androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale;
+
+import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -64,7 +72,11 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
         if (result.getResultCode() == RESULT_OK) {
             Intent data = result.getData();
             Uri uri = data.getData();
-            uriMutableLiveData.setValue(uri);
+            if (tienePermisoParaGaleria()) {
+                uriMutableLiveData.setValue(uri);
+            } else {
+                solicitarPermisoParaGaleria();
+            }
         }
     }
 
@@ -114,4 +126,16 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
         SharedPreferences sp = context.getSharedPreferences("tokenInmobiliaria", 0);
         return "Bearer " + sp.getString("tokenAcceso", null);
     }
+
+    private boolean tienePermisoParaGaleria() {
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void solicitarPermisoParaGaleria() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},10001);
+        }
+    }
+
+
 }

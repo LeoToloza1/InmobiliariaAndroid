@@ -1,9 +1,6 @@
 package com.leotoloza.menu.ui.Perfil;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,30 +18,23 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.leotoloza.menu.MainActivity;
 import com.leotoloza.menu.R;
 import com.leotoloza.menu.Servicios.Dialogo;
-import com.leotoloza.menu.Servicios.ToastPesonalizado;
-import com.leotoloza.menu.databinding.ActivityLoginAcitivityBinding;
 import com.leotoloza.menu.databinding.FragmentPerfilBinding;
-import com.leotoloza.menu.login.LoginActivity;
 import com.leotoloza.menu.modelo.Propietario;
 import com.leotoloza.menu.request.ApiClient;
-
-import org.w3c.dom.Text;
 
 public class PerfilFragment extends Fragment   {
 private PerfilViewModel viewModel;
     private FragmentPerfilBinding binding;
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication())).get(PerfilViewModel.class);
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        viewModel.setContext(requireActivity());
+
         setMenuVisibility(true);
         TextView nombre = binding.etNombre;
         TextView apellido = binding.etApellido;
@@ -121,40 +111,28 @@ private PerfilViewModel viewModel;
                         .into(foto);
             }
         });
-        viewModel.getMenuItemSelectionLiveData().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer itemId) {
-                viewModel.handleMenuAction(itemId);
-            }
-        });
-        viewModel.getMenuActionLiveData().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-
-            }
-        });
         viewModel.cargarPerfil();
         return root;
     }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        viewModel.handleMenuAction(item.getItemId());
-        viewModel.onMenuItemSelected(item.getItemId());
-        return true;
-    }
-
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        inflater.inflate(R.menu.opciones_perfil, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        ((MainActivity) requireActivity()).setPerfilFragmentVisible(true);
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        ((MainActivity) requireActivity()).setPerfilFragmentVisible(false);
+//    }
 
 }
