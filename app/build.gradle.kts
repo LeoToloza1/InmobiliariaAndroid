@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.gms.play.services.maps)
     implementation(libs.biometric)
     implementation(libs.mediarouter)
+    implementation(libs.cardview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 public class Pago implements Serializable
 {
+    private int id;
  private Contrato contrato;
  private String fecha_pago;
  private double importe;
@@ -12,7 +13,8 @@ public class Pago implements Serializable
  private int numero_pago;
  private String detalle;
 
-    public Pago(Contrato contrato, String fecha_pago, double importe, String estado, int numero_pago, String detalle) {
+    public Pago(int id, Contrato contrato, String fecha_pago, double importe, String estado, int numero_pago, String detalle) {
+        this.id = id;
         this.contrato = contrato;
         this.fecha_pago = fecha_pago;
         this.importe = importe;
@@ -25,6 +27,12 @@ public class Pago implements Serializable
         return contrato;
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setContrato(Contrato contrato) {
         this.contrato = contrato;
     }
@@ -67,5 +75,18 @@ public class Pago implements Serializable
 
     public void setDetalle(String detalle) {
         this.detalle = detalle;
+    }
+
+    @Override
+    public String toString() {
+        return "Pago{" +
+                "id=" + id +
+                ", contrato=" + contrato +
+                ", fecha_pago='" + fecha_pago + '\'' +
+                ", importe=" + importe +
+                ", estado='" + estado + '\'' +
+                ", numero_pago=" + numero_pago +
+                ", detalle='" + detalle + '\'' +
+                '}';
     }
 }

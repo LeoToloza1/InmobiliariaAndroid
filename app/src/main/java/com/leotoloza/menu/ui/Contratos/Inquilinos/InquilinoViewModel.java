@@ -34,4 +34,5 @@ public class InquilinoViewModel extends AndroidViewModel{
         inquilinos.postValue(contrato.getInquilino());
     }
 
+
 }

@@ -17,6 +17,7 @@ playServicesLocation = "21.2.0"
 playServicesMapsVersion = "18.2.0"
 biometric = "1.2.0-alpha05"
 mediarouter = "1.7.0"
+cardview = "1.0.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -35,6 +36,7 @@ play-services-location = { group = "com.google.android.gms", name = "play-servic
 gms-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMapsVersion" }
 biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
 mediarouter = { group = "androidx.mediarouter", name = "mediarouter", version.ref = "mediarouter" }
+cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,17 @@ public class InquilinoFragment extends Fragment {
             binding.etTelefono.setText(inquilino.getTelefono()+"");
             }
         });
-
         viewModel.recuperarInquilino(getArguments());
+binding.pagos.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Bundle bundle = new Bundle();
+
+        Navigation.findNavController(requireView()).navigate(R.id.action_Inquilinos_to_nav_pagos);
+
+    }
+});
+
 
         return binding.getRoot();
     }

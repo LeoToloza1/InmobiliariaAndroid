@@ -108,4 +108,20 @@ public class Contrato implements Serializable {
     public void setInmueble(Inmueble inmueble) {
         this.inmueble = inmueble;
     }
+
+    @Override
+    public String toString() {
+        return "Contrato{" +
+                "id=" + id +
+                ", inquilinoid=" + inquilinoid +
+                ", inmuebleid=" + inmuebleid +
+                ", fecha_inicio='" + fecha_inicio + '\'' +
+                ", fecha_fin='" + fecha_fin + '\'' +
+                ", fecha_efectiva='" + fecha_efectiva + '\'' +
+                ", monto=" + monto +
+                ", borrado=" + borrado +
+                ", inquilino=" + inquilino +
+                ", inmueble=" + inmueble +
+                '}';
+    }
 }

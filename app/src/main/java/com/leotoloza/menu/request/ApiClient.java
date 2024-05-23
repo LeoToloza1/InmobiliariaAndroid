@@ -75,8 +75,8 @@ public class ApiClient {
         @GET("api/contrato/alquilados")
         Call<List<Contrato>> inmueblesAlquilados(@Header("Authorization") String token);
 
-        @GET("api/pago")
-        Call<List<Pago>> pagosPorContrato(@Header("Authorization") String token);
+        @GET("api/pago/{id}")
+        Call<List<Pago>> pagosPorContrato(@Header("Authorization") String token, @Path("id") int id);
         @POST("api/recovery")
         @FormUrlEncoded
         Call<String> enviarMail(@Field("email") String email);

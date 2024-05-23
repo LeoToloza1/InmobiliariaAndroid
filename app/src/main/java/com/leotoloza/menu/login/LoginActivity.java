@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.leotoloza.menu.MainActivity;
 import com.leotoloza.menu.R;
+import com.leotoloza.menu.Servicios.Dialogo;
 import com.leotoloza.menu.Servicios.ToastPesonalizado;
 import com.leotoloza.menu.databinding.ActivityLoginAcitivityBinding;
 
@@ -64,6 +65,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(LoginActivity.this, RecuperarPassActivity.class);
                 startActivity(intent);
+            }
+        });
+        biometricaViewModel.getMensajeAutenticacion().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+               ToastPesonalizado.mostrarMensaje(LoginActivity.this,s);
             }
         });
         viewModel.getMensajeError().observe(this, new Observer<String>() {
