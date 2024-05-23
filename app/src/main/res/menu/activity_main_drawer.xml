@@ -20,9 +20,5 @@
             android:id="@+id/nav_contratos"
             android:icon="@drawable/contrato"
             android:title="@string/Contratos" />
-        <item
-            android:id="@+id/nav_pagos"
-            android:icon="@drawable/inversion"
-            android:title="@string/Pagos" />
     </group>
 </menu>

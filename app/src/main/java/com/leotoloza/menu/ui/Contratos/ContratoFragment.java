@@ -1,6 +1,7 @@
 package com.leotoloza.menu.ui.Contratos;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +26,13 @@ import java.util.List;
 
 public class ContratoFragment extends Fragment {
 private ContratoViewModel viewModel;
+private ViewModelCompartido viewModelCompartido;
     private FragmentContratosBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel =new ViewModelProvider(this).get(ContratoViewModel.class);
+        viewModelCompartido =new ViewModelProvider(requireActivity()).get(ViewModelCompartido.class);
         binding = FragmentContratosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         RecyclerView listaContratos = binding.listaContratos;
@@ -45,12 +48,21 @@ GridLayoutManager glm=new GridLayoutManager(getContext(),1,GridLayoutManager.VER
             public void clickDetalle(Contrato contrato) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("contrato", contrato);
+                viewModelCompartido.setContrato(contrato);
+//                Log.d("salida", "onChanged: CONTRATO"+contrato.getId());
                 Navigation.findNavController(requireView()).navigate(R.id.action_nav_contratos_to_Inquilinos, bundle);
             }
         });
     }
 });
-viewModel.getListContratos();
+        viewModelCompartido.getContrato().observe(getViewLifecycleOwner(), new Observer<Contrato>() {
+            @Override
+            public void onChanged(Contrato contrato) {
+
+            }
+        });
+
+        viewModel.getListContratos();
         return root;
     }
 

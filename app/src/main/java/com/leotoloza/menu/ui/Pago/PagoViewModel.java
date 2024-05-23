@@ -38,10 +38,11 @@ public class PagoViewModel extends AndroidViewModel {
         }
         return pagos;
     }
-public void getListPagos(){
+public void getListPagos(int id){
+    Log.d("salida", "getListPagos: "+id);
         String token = recuperarToken();
     ApiClient.ApiInmobiliaria endpoint = ApiClient.getApiInmobiliaria();
-   Call<List<Pago>> lista= endpoint.pagosPorContrato(token,6);
+   Call<List<Pago>> lista= endpoint.pagosPorContrato(token,id);
    lista.enqueue(new Callback<List<Pago>>() {
        @Override
        public void onResponse(Call<List<Pago>> call, Response<List<Pago>> response) {
@@ -50,7 +51,11 @@ public void getListPagos(){
 //               ToastPesonalizado.mostrarMensaje(context,"Trayendo datos de los pagos");
 //               Log.d("salida", "onResponse: "+response.raw());
            }else{
+               if(response.message().equalsIgnoreCase("Not found")){
+                   ToastPesonalizado.mostrarMensaje(context,"No hay Pagos registrados aun");
+               }else{
                ToastPesonalizado.mostrarMensaje(context,"Ocurrio un error: "+response.message());
+               }
            }
        }
        @Override
