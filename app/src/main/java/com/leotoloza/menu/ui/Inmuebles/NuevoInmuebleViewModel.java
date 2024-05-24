@@ -72,11 +72,7 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
         if (result.getResultCode() == RESULT_OK) {
             Intent data = result.getData();
             Uri uri = data.getData();
-            if (tienePermisoParaGaleria()) {
                 uriMutableLiveData.setValue(uri);
-            } else {
-                solicitarPermisoParaGaleria();
-            }
         }
     }
 
@@ -127,15 +123,15 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
         return "Bearer " + sp.getString("tokenAcceso", null);
     }
 
-    private boolean tienePermisoParaGaleria() {
-        return ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void solicitarPermisoParaGaleria() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},10001);
-        }
-    }
+//    private boolean tienePermisoParaGaleria() {
+//        return ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+//    }
+//
+//    private void solicitarPermisoParaGaleria() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},10001);
+//        }
+//    }
 
 
 }

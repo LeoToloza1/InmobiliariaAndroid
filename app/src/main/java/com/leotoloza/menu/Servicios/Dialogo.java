@@ -32,8 +32,6 @@ public static void mostrarDialogoConfirmacion(Context contexto, String titulo, S
     public static void mostrarDialogoConEntrada(Context contexto, String titulo, DialogInterface.OnClickListener listenerPositivo, CambioContraseñaListener cambioContraseñaListener) {
         AlertDialog.Builder constructorDialogo = new AlertDialog.Builder(contexto);
         constructorDialogo.setTitle(titulo);
-
-        // Inflar la vista personalizada
         View vistaDialogo = LayoutInflater.from(contexto).inflate(R.layout.dialogo_custom, null);
         constructorDialogo.setView(vistaDialogo);
 

@@ -73,7 +73,7 @@ private PerfilViewModel viewModel;
         viewModel.getPassword().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                Dialogo.mostrarDialogoInformativo(getContext(),"Ocurrio un error",s);
+
             }
         });
 //TODO hacer un dialogo para poder resetear la contraseña
