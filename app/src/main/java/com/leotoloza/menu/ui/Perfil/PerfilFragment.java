@@ -49,7 +49,7 @@ private PerfilViewModel viewModel;
                 nombre.setEnabled(habilitar);
                 apellido.setEnabled(habilitar);
                 dni.setEnabled(habilitar);
-                email.setEnabled(habilitar);
+                email.setEnabled(false);
                 telefono.setEnabled(habilitar);
             }
         });
